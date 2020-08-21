@@ -1,0 +1,75 @@
+PESSOA
+-
+cd_pss          PK      AUTOINCREMENT           INT                            # Código identificador da pessoa.
+tx_nome                                         VARCHAR(100)                   # Nome da pessoa.
+dt_nsc                  NULLABLE                DATE                           # Data de nascimento da pessoa.
+dt_cad                                          DATE                           # Data de cadastro da pessoa.
+tx_mail                 NULLABLE                VARCHAR(100)                   # E-mail da pessoa. 
+tx_nome_usr             UNIQUE                  VARCHAR(30)                    # Nome do usuário da pessoa. Exemplo: douglas.cunha
+tx_snh                                          VARCHAR(64)                    # Hash da senha.
+dt_atlc                                         TIMESTAMP                      # Data/hora da atualização da pessoa.
+
+NORMA
+-
+cd_norm         PK      AUTOINCREMENT                                   INT             # Código identificador da norma.
+num_norm                                                                INT             # Número da norma. Exemplo: n° 4.037.
+ts_doc                                                                  TIMESTAMP       # Data/hora do documento.
+tx_asst                                                                 TEXT            # Assunto da norma.
+tx_desc                                                                 TEXT            # Descrição da norma.
+tx_resp                                                     NULLABLE    VARCHAR(50)     # Responsável pela norma.
+tx_dou                                                      NULLABLE    VARCHAR(255)    # Texto referente ao documento publicado no Diário Oficial da União. Exemplo: Publicada no DOU de 17/7/2020, Seção 1, p. 23/24.
+tx_ref                                                      NULLABLE    TEXT            # Texto das referencias. Exemplo de referências: Base Legal e Regulamentar, Citações e Revogações.
+tx_att                                                      NULLABLE    TEXT            # Texto com as atualizações da norma. Exemplo: Resolução CMN nº 4.721/2019 - Revogação do art. 2º, § 5º, inciso II.
+cd_tipo_norm     FK >- DOMINIO_TIPO_NORMA.cd_tipo_norm                  SMALLINT        # Código identificador do tipo da norma.
+
+DOCUMENTO
+-
+cd_doc          PK      AUTOINCREMENT       INT             # Código identificador do documento.
+tx_nome                                     VARCHAR(50)     # Nome do documento.
+by_doc                                      BYTEA           # Documento em binário.
+
+POSTAGEM
+-
+cd_post                 PK          AUTOINCREMENT                   INT             # Código identificador da postagem.
+tx_titu                 UNIQUE                                      VARCHAR(50)     # Título da postagem.
+ts_inic                                                             TIMESTAMP       # Data/hora da postagem.
+ts_fim                                                  NULLABLE    TIMESTAMP       # Data/hora da inativação da postagem.
+tx_desc                                                             TEXT            # Descrição da postagem.
+tx_ref_link_img_capa                                                VARCHAR(100)    # Referência para a imagem da postagem.
+cd_sit                  FK >- DOMINIO_SITUACAO.cd_sit               SMALLINT        # Código identificador da situação da postagem.
+cd_pss                  FK >- PESSOA.cd_pss                         INT             # Código identificador da pessoa responsável pela postagem.
+
+RELACAO_DOCUMENTO_NORMA
+-
+cd_norm     PK      FK >- NORMA.cd_norm          INT         # Código identificador da norma.
+cd_doc      PK      FK >- DOCUMENTO.cd_doc       INT         # Código identificador do documento.
+
+RELACAO_NORMA
+-
+cd_norm         PK  FK >- NORMA.cd_norm     INT     # Código identificador da norma.
+cd_norm2        PK  FK >- NORMA.cd_norm     INT     # Código identificador da segunda norma.
+
+RELACAO_POSTAGEM_NORMA
+-
+cd_post     PK  FK >- POSTAGEM.cd_post      INT     # Código identificador do post.
+cd_norm     PK  FK >- NORMA.cd_norm         INT     # Código identificador da norma.
+
+RELACAO_POSTAGEM_CATEGORIA
+-
+cd_post     PK FK >- POSTAGEM.cd_post               INT         # Código identificador da postagem.
+cd_cat      PK FK >- DOMINIO_CATEGORIA.cd_cat       SMALLINT    # Código identificador da categoria.
+
+DOMINIO_TIPO_NORMA
+-
+cd_tipo_norm    PK  SMALLINT        # Código identificador do tipo da norma.
+tx_nome             VARCHAR(50)     # Nome do tipo da norma.
+
+DOMINIO_CATEGORIA
+-
+cd_cat      PK      SMALLINT        # Código identificador da categoria.
+tx_nome             VARCHAR(50)     # Nome da situação.
+
+DOMINIO_SITUACAO
+-
+cd_sit      PK      SMALLINT        # Código identificador da situação.
+tx_nome             VARCHAR(50)     # Nome da situação.
