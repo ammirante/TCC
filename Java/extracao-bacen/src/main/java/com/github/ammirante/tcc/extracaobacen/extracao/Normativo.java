@@ -2,223 +2,119 @@ package com.github.ammirante.tcc.extracaobacen.extracao;
 
 import java.util.Date;
 
+import javax.json.bind.JsonbConfig;
+import javax.json.bind.annotation.JsonbCreator;
+import javax.json.bind.annotation.JsonbProperty;
+
 /**
  * Normativo
  *
  */
 public class Normativo {
 
-	private String title;
-	private String refinableString01;
-	private String assuntoNormativoOWSMTXT;
-	private String responsavelOWSText;
-	private Integer listItemId;
-	private String tipodoNormativoOWSCHCS;
-	private String numeroOWSNMBR;
-	private Boolean revogadoOWSBOOL;
-	private String hitHighlightedSummary;
-	private Boolean canceladoOWSBOOL;
+	JsonbConfig config = new JsonbConfig().setProperty("ALLOW_JSONB_CREATOR_OPTIONAL_PARAMS", true);
+	
+	private String titulo;
+	private String assuntoNormativo;
+	private String responsavel;
+	private String listItemId;
+	private String tipoNormativo;
+	private Boolean isRevogado;
+	private Boolean isCancelado;
 	private Date data;
-	private String refinableString03;
-	private Integer rowNumber;
 	
-	/**
-	 * 
-	 */
-	public Normativo() {
-		
-	}
-	
-	/**
-	 * @param title
-	 * @param refinableString01
-	 * @param assuntoNormativoOWSMTXT
-	 * @param responsavelOWSText
-	 * @param listItemId
-	 * @param tipodoNormativoOWSCHCS
-	 * @param numeroOWSNMBR
-	 * @param revogadoOWSBOOL
-	 * @param hitHighlightedSummary
-	 * @param canceladoOWSBOOL
-	 * @param data
-	 * @param refinableString03
-	 * @param rowNumber
-	 */
-	public Normativo(String title, String refinableString01, String assuntoNormativoOWSMTXT, String responsavelOWSText,
-			Integer listItemId, String tipodoNormativoOWSCHCS, String numeroOWSNMBR, Boolean revogadoOWSBOOL,
-			String hitHighlightedSummary, Boolean canceladoOWSBOOL, Date data, String refinableString03,
-			Integer rowNumber) {
-		super();
-		this.title = title;
-		this.refinableString01 = refinableString01;
-		this.assuntoNormativoOWSMTXT = assuntoNormativoOWSMTXT;
-		this.responsavelOWSText = responsavelOWSText;
+    /**
+     * @param titulo
+     * @param assuntoNormativo
+     * @param responsavel
+     * @param listItemId
+     * @param tipoNormativo
+     * @param isRevogado
+     * @param isCancelado
+     * @param data
+     */
+    public Normativo(String titulo, String assuntoNormativo, String responsavel, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data) {
+		this.titulo = titulo;
+		this.assuntoNormativo = assuntoNormativo;
+		this.responsavel = responsavel;
 		this.listItemId = listItemId;
-		this.tipodoNormativoOWSCHCS = tipodoNormativoOWSCHCS;
-		this.numeroOWSNMBR = numeroOWSNMBR;
-		this.revogadoOWSBOOL = revogadoOWSBOOL;
-		this.hitHighlightedSummary = hitHighlightedSummary;
-		this.canceladoOWSBOOL = canceladoOWSBOOL;
+		this.tipoNormativo = tipoNormativo;
+		this.isRevogado = isRevogado;
+		this.isCancelado = isCancelado;
 		this.data = data;
-		this.refinableString03 = refinableString03;
-		this.rowNumber = rowNumber;
+	}
+    
+    /**
+     * @param titulo
+     * @param assuntoNormativo
+     * @param responsavel
+     * @param listItemId
+     * @param tipoNormativo
+     * @param isRevogado
+     * @param isCancelado
+     * @param data
+     * @return
+     */
+    @JsonbCreator
+    public static Normativo of(@JsonbProperty("title") String titulo, @JsonbProperty("AssuntoNormativoOWSMTXT") String assuntoNormativo, @JsonbProperty("ResponsavelOWSText") String responsavel, @JsonbProperty("listItemId") String listItemId, 
+    		@JsonbProperty("TipodoNormativoOWSCHCS") String tipoNormativo, @JsonbProperty("RevogadoOWSBOOL") Boolean isRevogado, @JsonbProperty("CanceladoOWSBOOL") Boolean isCancelado, @JsonbProperty("data") Date data) {
+    	return new Normativo(titulo, assuntoNormativo, responsavel != null ? responsavel : null, listItemId, tipoNormativo, isRevogado, isCancelado, data);
 	}
 	
 	/**
-	 * @return the title
+	 * @return the titulo
 	 */
-	public String getTitle() {
-		return title;
+	public String getTitulo() {
+		return titulo;
 	}
+
 	/**
-	 * @param title the title to set
+	 * @return the assuntoNormativo
 	 */
-	public void setTitle(String title) {
-		this.title = title;
+	public String getAssuntoNormativo() {
+		return assuntoNormativo;
 	}
+
 	/**
-	 * @return the refinableString01
+	 * @return the responsavel
 	 */
-	public String getRefinableString01() {
-		return refinableString01;
+	public String getResponsavel() {
+		return responsavel;
 	}
-	/**
-	 * @param refinableString01 the refinableString01 to set
-	 */
-	public void setRefinableString01(String refinableString01) {
-		this.refinableString01 = refinableString01;
-	}
-	/**
-	 * @return the assuntoNormativoOWSMTXT
-	 */
-	public String getAssuntoNormativoOWSMTXT() {
-		return assuntoNormativoOWSMTXT;
-	}
-	/**
-	 * @param assuntoNormativoOWSMTXT the assuntoNormativoOWSMTXT to set
-	 */
-	public void setAssuntoNormativoOWSMTXT(String assuntoNormativoOWSMTXT) {
-		this.assuntoNormativoOWSMTXT = assuntoNormativoOWSMTXT;
-	}
-	/**
-	 * @return the responsavelOWSText
-	 */
-	public String getResponsavelOWSText() {
-		return responsavelOWSText;
-	}
-	/**
-	 * @param responsavelOWSText the responsavelOWSText to set
-	 */
-	public void setResponsavelOWSText(String responsavelOWSText) {
-		this.responsavelOWSText = responsavelOWSText;
-	}
+
 	/**
 	 * @return the listItemId
 	 */
-	public Integer getListItemId() {
+	public String getListItemId() {
 		return listItemId;
 	}
+
 	/**
-	 * @param listItemId the listItemId to set
+	 * @return the tipoNormativo
 	 */
-	public void setListItemId(Integer listItemId) {
-		this.listItemId = listItemId;
+	public String getTipoNormativo() {
+		return tipoNormativo;
 	}
+
 	/**
-	 * @return the tipodoNormativoOWSCHCS
+	 * @return the isRevogado
 	 */
-	public String getTipodoNormativoOWSCHCS() {
-		return tipodoNormativoOWSCHCS;
+	public Boolean getIsRevogado() {
+		return isRevogado;
 	}
+
 	/**
-	 * @param tipodoNormativoOWSCHCS the tipodoNormativoOWSCHCS to set
+	 * @return the isCancelado
 	 */
-	public void setTipodoNormativoOWSCHCS(String tipodoNormativoOWSCHCS) {
-		this.tipodoNormativoOWSCHCS = tipodoNormativoOWSCHCS;
+	public Boolean getIsCancelado() {
+		return isCancelado;
 	}
-	/**
-	 * @return the numeroOWSNMBR
-	 */
-	public String getNumeroOWSNMBR() {
-		return numeroOWSNMBR;
-	}
-	/**
-	 * @param numeroOWSNMBR the numeroOWSNMBR to set
-	 */
-	public void setNumeroOWSNMBR(String numeroOWSNMBR) {
-		this.numeroOWSNMBR = numeroOWSNMBR;
-	}
-	/**
-	 * @return the revogadoOWSBOOL
-	 */
-	public Boolean getRevogadoOWSBOOL() {
-		return revogadoOWSBOOL;
-	}
-	/**
-	 * @param revogadoOWSBOOL the revogadoOWSBOOL to set
-	 */
-	public void setRevogadoOWSBOOL(Boolean revogadoOWSBOOL) {
-		this.revogadoOWSBOOL = revogadoOWSBOOL;
-	}
-	/**
-	 * @return the hitHighlightedSummary
-	 */
-	public String getHitHighlightedSummary() {
-		return hitHighlightedSummary;
-	}
-	/**
-	 * @param hitHighlightedSummary the hitHighlightedSummary to set
-	 */
-	public void setHitHighlightedSummary(String hitHighlightedSummary) {
-		this.hitHighlightedSummary = hitHighlightedSummary;
-	}
-	/**
-	 * @return the canceladoOWSBOOL
-	 */
-	public Boolean getCanceladoOWSBOOL() {
-		return canceladoOWSBOOL;
-	}
-	/**
-	 * @param canceladoOWSBOOL the canceladoOWSBOOL to set
-	 */
-	public void setCanceladoOWSBOOL(Boolean canceladoOWSBOOL) {
-		this.canceladoOWSBOOL = canceladoOWSBOOL;
-	}
+
 	/**
 	 * @return the data
 	 */
 	public Date getData() {
 		return data;
-	}
-	/**
-	 * @param data the data to set
-	 */
-	public void setData(Date data) {
-		this.data = data;
-	}
-	/**
-	 * @return the refinableString03
-	 */
-	public String getRefinableString03() {
-		return refinableString03;
-	}
-	/**
-	 * @param refinableString03 the refinableString03 to set
-	 */
-	public void setRefinableString03(String refinableString03) {
-		this.refinableString03 = refinableString03;
-	}
-	/**
-	 * @return the rowNumber
-	 */
-	public Integer getRowNumber() {
-		return rowNumber;
-	}
-	/**
-	 * @param rowNumber the rowNumber to set
-	 */
-	public void setRowNumber(Integer rowNumber) {
-		this.rowNumber = rowNumber;
 	}
 	
 }

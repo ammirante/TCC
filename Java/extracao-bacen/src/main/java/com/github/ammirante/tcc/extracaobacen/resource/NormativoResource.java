@@ -12,7 +12,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import com.github.ammirante.tcc.extracaobacen.extracao.BacenExtracaoService;
@@ -30,8 +29,7 @@ public class NormativoResource {
 	
     @GET
     public RetornoBacen recuperarNormativos(@QueryParam("conteudo") String conteudo) throws URISyntaxException {
-    	BacenExtracaoService service = RestClientBuilder.newBuilder().build(BacenExtracaoService.class);
-    	return service.getNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
+    	return bacenExtracaoService.getNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
     }
     
     @GET
