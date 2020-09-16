@@ -1,8 +1,8 @@
 package com.github.ammirante.tcc.extracaobacen.extracao;
 
 import java.util.Date;
+import java.util.Optional;
 
-import javax.json.bind.JsonbConfig;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
 
@@ -12,11 +12,9 @@ import javax.json.bind.annotation.JsonbProperty;
  */
 public class Normativo {
 
-	JsonbConfig config = new JsonbConfig().setProperty("ALLOW_JSONB_CREATOR_OPTIONAL_PARAMS", true);
-	
 	private String titulo;
 	private String assuntoNormativo;
-	private String responsavel;
+	private Optional<String> responsavel;
 	private String listItemId;
 	private String tipoNormativo;
 	private Boolean isRevogado;
@@ -33,7 +31,7 @@ public class Normativo {
      * @param isCancelado
      * @param data
      */
-    public Normativo(String titulo, String assuntoNormativo, String responsavel, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data) {
+    public Normativo(String titulo, String assuntoNormativo, Optional<String> responsavel, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data) {
 		this.titulo = titulo;
 		this.assuntoNormativo = assuntoNormativo;
 		this.responsavel = responsavel;
@@ -56,7 +54,7 @@ public class Normativo {
      * @return
      */
     @JsonbCreator
-    public static Normativo of(@JsonbProperty("title") String titulo, @JsonbProperty("AssuntoNormativoOWSMTXT") String assuntoNormativo, @JsonbProperty("ResponsavelOWSText") String responsavel, @JsonbProperty("listItemId") String listItemId, 
+    public static Normativo of(@JsonbProperty("title") String titulo, @JsonbProperty("AssuntoNormativoOWSMTXT") String assuntoNormativo, @JsonbProperty(value = "ResponsavelOWSText", nillable = true) Optional<String> responsavel, @JsonbProperty("listItemId") String listItemId, 
     		@JsonbProperty("TipodoNormativoOWSCHCS") String tipoNormativo, @JsonbProperty("RevogadoOWSBOOL") Boolean isRevogado, @JsonbProperty("CanceladoOWSBOOL") Boolean isCancelado, @JsonbProperty("data") Date data) {
     	return new Normativo(titulo, assuntoNormativo, responsavel != null ? responsavel : null, listItemId, tipoNormativo, isRevogado, isCancelado, data);
 	}
@@ -78,7 +76,7 @@ public class Normativo {
 	/**
 	 * @return the responsavel
 	 */
-	public String getResponsavel() {
+	public Optional<String> getResponsavel() {
 		return responsavel;
 	}
 

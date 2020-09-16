@@ -29,6 +29,8 @@ public class NormativoResource {
 	
     @GET
     public RetornoBacen recuperarNormativos(@QueryParam("conteudo") String conteudo) throws URISyntaxException {
+    	RetornoBacen retornoBance = bacenExtracaoService.getNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
+    	
     	return bacenExtracaoService.getNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
     }
     
