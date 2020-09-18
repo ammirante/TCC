@@ -57,4 +57,12 @@ public class RetornoBacen {
 	public List<Normativo> getRows() {
 		return rows;
 	}
+
+	/**
+	 *
+	 */
+	@Override
+	public String toString() {
+		return "RetornoBacen [totalRows=" + totalRows + ", rowCount=" + rowCount + ", rows=" + rows + "]";
+	}
 }

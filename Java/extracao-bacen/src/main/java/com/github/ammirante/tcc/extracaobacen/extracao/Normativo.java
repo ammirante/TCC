@@ -1,7 +1,6 @@
 package com.github.ammirante.tcc.extracaobacen.extracao;
 
 import java.util.Date;
-import java.util.Optional;
 
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
@@ -14,7 +13,6 @@ public class Normativo {
 
 	private String titulo;
 	private String assuntoNormativo;
-	private Optional<String> responsavel;
 	private String listItemId;
 	private String tipoNormativo;
 	private Boolean isRevogado;
@@ -31,10 +29,9 @@ public class Normativo {
      * @param isCancelado
      * @param data
      */
-    public Normativo(String titulo, String assuntoNormativo, Optional<String> responsavel, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data) {
+    public Normativo(String titulo, String assuntoNormativo, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data) {
 		this.titulo = titulo;
 		this.assuntoNormativo = assuntoNormativo;
-		this.responsavel = responsavel;
 		this.listItemId = listItemId;
 		this.tipoNormativo = tipoNormativo;
 		this.isRevogado = isRevogado;
@@ -54,9 +51,9 @@ public class Normativo {
      * @return
      */
     @JsonbCreator
-    public static Normativo of(@JsonbProperty("title") String titulo, @JsonbProperty("AssuntoNormativoOWSMTXT") String assuntoNormativo, @JsonbProperty(value = "ResponsavelOWSText", nillable = true) Optional<String> responsavel, @JsonbProperty("listItemId") String listItemId, 
+    public static Normativo of(@JsonbProperty("title") String titulo, @JsonbProperty("AssuntoNormativoOWSMTXT") String assuntoNormativo, @JsonbProperty("listItemId") String listItemId, 
     		@JsonbProperty("TipodoNormativoOWSCHCS") String tipoNormativo, @JsonbProperty("RevogadoOWSBOOL") Boolean isRevogado, @JsonbProperty("CanceladoOWSBOOL") Boolean isCancelado, @JsonbProperty("data") Date data) {
-    	return new Normativo(titulo, assuntoNormativo, responsavel != null ? responsavel : null, listItemId, tipoNormativo, isRevogado, isCancelado, data);
+    	return new Normativo(titulo, assuntoNormativo, listItemId, tipoNormativo, isRevogado, isCancelado, data);
 	}
 	
 	/**
@@ -71,13 +68,6 @@ public class Normativo {
 	 */
 	public String getAssuntoNormativo() {
 		return assuntoNormativo;
-	}
-
-	/**
-	 * @return the responsavel
-	 */
-	public Optional<String> getResponsavel() {
-		return responsavel;
 	}
 
 	/**
@@ -113,6 +103,16 @@ public class Normativo {
 	 */
 	public Date getData() {
 		return data;
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public String toString() {
+		return "Normativo [titulo=" + titulo + ", assuntoNormativo=" + assuntoNormativo + ", listItemId=" + listItemId
+				+ ", tipoNormativo=" + tipoNormativo + ", isRevogado=" + isRevogado + ", isCancelado=" + isCancelado
+				+ ", data=" + data + "]";
 	}
 	
 }
