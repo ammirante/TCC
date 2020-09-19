@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import com.github.ammirante.tcc.extracaobacen.extracao.RetornoBacen;
-import com.github.ammirante.tcc.extracaobacen.servico.ExtracaoServico;
+import com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService;
 
 /**
  * NormativoResource
@@ -26,7 +26,7 @@ import com.github.ammirante.tcc.extracaobacen.servico.ExtracaoServico;
 public class NormativoResource {
 	
 	@Inject
-	ExtracaoServico extracaoServico;
+	ExtracaoService extracaoServico;
 	
     /**
      * @param conteudo
@@ -35,7 +35,7 @@ public class NormativoResource {
      */
     @GET
     public RetornoBacen recuperarNormativos(@QueryParam("conteudo") String conteudo) throws URISyntaxException {
-    	extracaoServico.teste();
+    	extracaoServico.extrairNormas(conteudo);
     	return null;
     }
     

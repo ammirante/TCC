@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -22,7 +21,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
  */
 @Entity
 @Table(name = "norma")
-@XmlRootElement(name = "norma")
 public class Norma extends PanacheEntityBase {
 
 	@Id
