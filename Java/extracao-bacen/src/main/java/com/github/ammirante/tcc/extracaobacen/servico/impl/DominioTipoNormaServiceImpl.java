@@ -2,7 +2,6 @@ package com.github.ammirante.tcc.extracaobacen.servico.impl;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import org.jboss.logging.Logger;
 
@@ -29,9 +28,8 @@ public class DominioTipoNormaServiceImpl implements DominioTipoNormaService {
 	 * @see com.github.ammirante.tcc.extracaobacen.servico.DominioTipoNormaService#persistir(java.lang.String)
 	*/
 	@Override
-	@Transactional
 	public void persistir(String tipoNorma) {
-		LOGGER.debug("Iniciando a persistência da norma: " + tipoNorma);
+		LOGGER.info("Iniciando a persistência do domínio: " + tipoNorma);
 		DominioNorma dominioNorma = DominioNorma.findByNomeIgnoreCase(tipoNorma).firstResult();
 		Long qtdRegistros = DominioNorma.count();
 		Long codigoTipoNorma = qtdRegistros > 0 ? qtdRegistros + 1 : 1L;
@@ -41,9 +39,11 @@ public class DominioTipoNormaServiceImpl implements DominioTipoNormaService {
 			adicionarDominioNormaDTO.codigoTipoNorma = codigoTipoNorma;
 			adicionarDominioNormaDTO.nome = tipoNorma;
 			dominioNorma = dominioNormaMapper.toDominioNorma(adicionarDominioNormaDTO);
-			dominioNorma.persist();
+			dominioNorma.persistAndFlush();
+			LOGGER.info("Fim a persistência do domínio: " + adicionarDominioNormaDTO.toString());
+		} else {
+			LOGGER.info("Domínio já cadastrado no banco.");
 		}
-		LOGGER.debug("Fim a persistência da norma: " + dominioNorma.toString());
 	}
 
 }

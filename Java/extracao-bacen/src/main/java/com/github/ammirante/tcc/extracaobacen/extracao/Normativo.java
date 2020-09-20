@@ -1,5 +1,6 @@
 package com.github.ammirante.tcc.extracaobacen.extracao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.json.bind.annotation.JsonbCreator;
@@ -18,18 +19,19 @@ public class Normativo {
 	private Boolean isRevogado;
 	private Boolean isCancelado;
 	private Date data;
+	private BigDecimal numeroNormativo;
 	
     /**
      * @param titulo
      * @param assuntoNormativo
-     * @param responsavel
      * @param listItemId
      * @param tipoNormativo
      * @param isRevogado
      * @param isCancelado
      * @param data
+     * @param numeroNormativo
      */
-    public Normativo(String titulo, String assuntoNormativo, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data) {
+    public Normativo(String titulo, String assuntoNormativo, String listItemId, String tipoNormativo, Boolean isRevogado, Boolean isCancelado, Date data, BigDecimal numeroNormativo) {
 		this.titulo = titulo;
 		this.assuntoNormativo = assuntoNormativo;
 		this.listItemId = listItemId;
@@ -37,12 +39,12 @@ public class Normativo {
 		this.isRevogado = isRevogado;
 		this.isCancelado = isCancelado;
 		this.data = data;
+		this.numeroNormativo = numeroNormativo;
 	}
     
     /**
      * @param titulo
      * @param assuntoNormativo
-     * @param responsavel
      * @param listItemId
      * @param tipoNormativo
      * @param isRevogado
@@ -52,8 +54,9 @@ public class Normativo {
      */
     @JsonbCreator
     public static Normativo of(@JsonbProperty("title") String titulo, @JsonbProperty("AssuntoNormativoOWSMTXT") String assuntoNormativo, @JsonbProperty("listItemId") String listItemId, 
-    		@JsonbProperty("TipodoNormativoOWSCHCS") String tipoNormativo, @JsonbProperty("RevogadoOWSBOOL") Boolean isRevogado, @JsonbProperty("CanceladoOWSBOOL") Boolean isCancelado, @JsonbProperty("data") Date data) {
-    	return new Normativo(titulo, assuntoNormativo, listItemId, tipoNormativo, isRevogado, isCancelado, data);
+    		@JsonbProperty("TipodoNormativoOWSCHCS") String tipoNormativo, @JsonbProperty("RevogadoOWSBOOL") Boolean isRevogado, @JsonbProperty("CanceladoOWSBOOL") Boolean isCancelado, @JsonbProperty("data") Date data,
+    		@JsonbProperty("NumeroOWSNMBR") BigDecimal numeroNormativo) {
+    	return new Normativo(titulo, assuntoNormativo, listItemId, tipoNormativo, isRevogado, isCancelado, data, numeroNormativo);
 	}
 	
 	/**
@@ -106,13 +109,26 @@ public class Normativo {
 	}
 
 	/**
-	 *
+	 * @return the numeroNormativo
 	 */
+	public BigDecimal getNumeroNormativo() {
+		return numeroNormativo;
+	}
+
+	/**
+	 * @param numeroNormativo the numeroNormativo to set
+	 */
+	public void setNumeroNormativo(BigDecimal numeroNormativo) {
+		this.numeroNormativo = numeroNormativo;
+	}
+
+	/** (non-Javadoc)
+	*  @see java.lang.Object#toString()
+	*/
 	@Override
 	public String toString() {
 		return "Normativo [titulo=" + titulo + ", assuntoNormativo=" + assuntoNormativo + ", listItemId=" + listItemId
 				+ ", tipoNormativo=" + tipoNormativo + ", isRevogado=" + isRevogado + ", isCancelado=" + isCancelado
-				+ ", data=" + data + "]";
+				+ ", data=" + data + ", numeroNormativo=" + numeroNormativo + "]";
 	}
-	
 }

@@ -28,7 +28,7 @@ public class Norma extends PanacheEntityBase {
 	@Column(name = "cd_norma")
 	public Long codigoNorma;
 	
-	@Column(name = "num_norm", nullable = false)
+	@Column(name = "num_norm", nullable = false, updatable = false)
 	public Integer numeroNorma;
 	
 	@Column(name = "ts_dc", nullable = false)
@@ -37,6 +37,10 @@ public class Norma extends PanacheEntityBase {
 	@Lob
 	@Column(name = "tx_asst", nullable = false)
 	public String assunto;
+	
+	@Lob
+	@Column(name = "tx_tx", nullable = false)
+	public String texto;
 	
 	@Column(name = "tx_resp")
 	public String responsavel;
@@ -53,5 +57,8 @@ public class Norma extends PanacheEntityBase {
 	public String atualizacoes;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	public DominioNorma dominioNorma; 
+	public DominioNorma dominioNorma;
+	
+	@Column(name = "tx_norm_vinc")
+	public String normasVinculadas;
 }

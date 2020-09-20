@@ -1,11 +1,23 @@
 package com.github.ammirante.tcc.extracaobacen.servico.impl;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
+import com.github.ammirante.tcc.extracaobacen.dto.AdicionarNormaDTO;
+import com.github.ammirante.tcc.extracaobacen.dto.NormaMapper;
+import com.github.ammirante.tcc.extracaobacen.entidade.DominioNorma;
+import com.github.ammirante.tcc.extracaobacen.entidade.Norma;
+import com.github.ammirante.tcc.extracaobacen.extracao.BacenExtracaoAPI;
+import com.github.ammirante.tcc.extracaobacen.extracao.DetalhamentoNormativo;
+import com.github.ammirante.tcc.extracaobacen.extracao.DetalhamentoOutrosNormativos;
+import com.github.ammirante.tcc.extracaobacen.extracao.ExibeNormativoBacen;
+import com.github.ammirante.tcc.extracaobacen.extracao.ExibeOutrosNormativosBacen;
 import com.github.ammirante.tcc.extracaobacen.extracao.Normativo;
 import com.github.ammirante.tcc.extracaobacen.servico.NormativoService;
+import com.github.ammirante.tcc.extracaobacen.util.DominioNormaEnum;
 
 /**
  * NormativoServiceImpl
@@ -16,13 +28,78 @@ public class NormativoServiceImpl implements NormativoService {
 
 	private static final Logger LOGGER = Logger.getLogger(NormativoServiceImpl.class);
 
+	@Inject
+	NormaMapper normaMapper;
+	
+	@RestClient
+	@Inject
+	BacenExtracaoAPI bacenExtracaoAPI;
+	
 	/** (non-Javadoc)
 	 * Método responsável por persistir um normativo.
-	 * @see com.github.ammirante.tcc.extracaobacen.servico.NormativoService#persistir(com.github.ammirante.tcc.extracaobacen.extracao.Normativo)
+	 * 
+	 * @see com.github.ammirante.tcc.extracaobacen.servico.NormativoService#persistirResumoNormativo(com.github.ammirante.tcc.extracaobacen.extracao.Normativo)
 	*/
 	@Override
-	public void persistir(Normativo normativo) {
+	public void persistirResumoNormativo(Normativo normativo) {
+		LOGGER.info("Iniciando a persistência da norma: " + normativo.toString());
+		AdicionarNormaDTO adicionarNormaDTO = new AdicionarNormaDTO();
+		adicionarNormaDTO.assunto = extrairAssunto(normativo.getAssuntoNormativo());
+		adicionarNormaDTO.dataDocumento = normativo.getData();
+		adicionarNormaDTO.numeroNorma = normativo.getNumeroNormativo().intValue();
+		adicionarNormaDTO.dominioNorma = DominioNorma.findByNomeIgnoreCase(normativo.getTipoNormativo()).firstResult();
+
+		// Recuperando os detalhes no normativo e preenchendo as informações faltantes.
+		recuperaDetalhesNormativo(adicionarNormaDTO);
 		
+		Norma norma = normaMapper.toNorma(adicionarNormaDTO);
+		norma.persist();
+		
+		LOGGER.info("Fim da persistência da norma: " + normativo.toString());
+	}
+	
+	/**
+	 * Método responsável por requisitar os detalhes do normativo e preencher as informações faltantes.
+	 * @param adicionarNormaDTO
+	 */
+	private void recuperaDetalhesNormativo(AdicionarNormaDTO adicionarNormaDTO) {
+		if(adicionarNormaDTO.dominioNorma.nome.equals(DominioNormaEnum.COMUNICADO.getNomeNorma())) {
+			DetalhamentoOutrosNormativos detalhamentoOutrosNormativos = bacenExtracaoAPI.recuperarOutrasNormas(adicionarNormaDTO.dominioNorma.nome, adicionarNormaDTO.numeroNorma);
+			ExibeOutrosNormativosBacen exibeOutrosNormativosBacen = detalhamentoOutrosNormativos.getConteudo().get(0);
+			adicionarNormaDTO.texto = exibeOutrosNormativosBacen.getTexto();
+			adicionarNormaDTO.diarioOficialUniao = exibeOutrosNormativosBacen.getDiarioOficialUniao();
+		} else {
+			DetalhamentoNormativo detalhamentoNormativo = bacenExtracaoAPI.exibeNormativo(adicionarNormaDTO.dominioNorma.nome, adicionarNormaDTO.numeroNorma);
+			ExibeNormativoBacen exibeNormativoBacen = detalhamentoNormativo.getConteudo().get(0);
+			adicionarNormaDTO.diarioOficialUniao = exibeNormativoBacen.getDiarioOficialUniao();
+			adicionarNormaDTO.texto = exibeNormativoBacen.getTexto();
+			adicionarNormaDTO.referencia = exibeNormativoBacen.getReferencias();
+			adicionarNormaDTO.normasVinculadas = exibeNormativoBacen.getNormasVinculadas();
+		}
+	}
+	
+	/**
+	 * Método responsável por formatar o assunto do normativo.
+	 * @param assuntoNaoFormatado
+	 * @return
+	 */
+	private String extrairAssunto(String assuntoNaoFormatado) {
+		Integer idxString = 0;
+		Boolean isPrecisaFormatar = Boolean.FALSE;
+		String assuntoFormatado = assuntoNaoFormatado;
+		for(Character character : assuntoNaoFormatado.toCharArray()) {
+			if(character.equals('>')) {
+				isPrecisaFormatar = Boolean.TRUE;
+				break;
+			}
+			idxString++;
+		}
+		
+		if(isPrecisaFormatar) {
+			assuntoFormatado = assuntoNaoFormatado.substring(idxString + 1, assuntoNaoFormatado.length() - 6); 
+		}
+		
+		return assuntoFormatado;
 	}
 	
 }

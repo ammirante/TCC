@@ -11,6 +11,6 @@ public interface NormativoService {
 	/**
 	 * @param normativo
 	 */
-	void persistir(Normativo normativo);
+	void persistirResumoNormativo(Normativo normativo);
 	
 }

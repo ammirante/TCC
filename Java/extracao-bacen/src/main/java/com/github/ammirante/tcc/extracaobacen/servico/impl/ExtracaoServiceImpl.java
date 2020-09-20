@@ -12,6 +12,7 @@ import com.github.ammirante.tcc.extracaobacen.extracao.Normativo;
 import com.github.ammirante.tcc.extracaobacen.extracao.RetornoBacen;
 import com.github.ammirante.tcc.extracaobacen.servico.DominioTipoNormaService;
 import com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService;
+import com.github.ammirante.tcc.extracaobacen.servico.NormativoService;
 
 /**
  * ExtracaoServiceImpl
@@ -29,18 +30,28 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 	@Inject
 	DominioTipoNormaService dominioTipoNormaService;
 	
+	@Inject
+	NormativoService normativoService;
+	
 	/** (non-Javadoc)
 	*  @see com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService#extrairNormas(java.lang.String)
 	*/
 	@Override
 	@Transactional
 	public void extrairNormas(String conteudo) {
-		RetornoBacen retornoBacen = bacenExtracaoAPI.getNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
+		LOGGER.info("Iniciando a extração das normas");
+		long tempoInicialExtracao = System.currentTimeMillis();
+		RetornoBacen retornoBacen = bacenExtracaoAPI.buscaNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
+		long tempoFinalExtracao = System.currentTimeMillis();
+		LOGGER.info("Extração das normas finalizada. Tempo da extração em milisegundos: " + (tempoFinalExtracao - tempoInicialExtracao));
 
+		LOGGER.info("Iniciando procedimento para persistências das normas e seus respectivos domínios.");
+		long tempoInicialPersistencia = System.currentTimeMillis();
 		for(Normativo normativo : retornoBacen.getRows()) {
 			dominioTipoNormaService.persistir(normativo.getTipoNormativo());
+			normativoService.persistirResumoNormativo(normativo);
 		}
-		
-		LOGGER.info(retornoBacen.toString());
+		long tempoFinalPersistencia = System.currentTimeMillis();
+		LOGGER.info("Finalizado o procedimento para persistência das normas e seus respectivos domínios. Tempo da persistência: " + (tempoFinalPersistencia - tempoInicialPersistencia));
 	}
 }

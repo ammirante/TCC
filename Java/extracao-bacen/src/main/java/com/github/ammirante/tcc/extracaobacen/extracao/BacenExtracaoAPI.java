@@ -12,7 +12,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
  * BacenExtracaoAPI
  *
  */
-@Path("/buscanormativos")
+@Path("/api")
 @RegisterRestClient
 @Produces(MediaType.APPLICATION_JSON)
 public interface BacenExtracaoAPI {
@@ -24,6 +24,24 @@ public interface BacenExtracaoAPI {
 	 * @return
 	 */
 	@GET
-	public RetornoBacen getNormativos(@QueryParam("querytext") String queryText, @QueryParam("rowlimit") String rowLimit, @QueryParam("startrow") String startRow);
+	@Path("/search/app/normativos/buscanormativos")
+	public RetornoBacen buscaNormativos(@QueryParam("querytext") String queryText, @QueryParam("rowlimit") String rowLimit, @QueryParam("startrow") String startRow);
+	
+	/**
+	 * @param p1
+	 * @param p2
+	 */
+	@GET
+	@Path("/conteudo/app/normativos/exibenormativo")
+	public DetalhamentoNormativo exibeNormativo(@QueryParam("p1") String p1, @QueryParam("p2") Integer p2);
+	
+	/**
+	 * @param p1
+	 * @param p2
+	 */
+	@GET
+	@Path("/conteudo/app/normativos/exibeoutrasnormas")
+	public DetalhamentoOutrosNormativos recuperarOutrasNormas(@QueryParam("p1") String p1, @QueryParam("p2") Integer p2);
+	
 	
 }
