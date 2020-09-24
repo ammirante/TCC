@@ -42,7 +42,7 @@ public class Postagem extends PanacheEntityBase {
 	public Date dataPostagem;
 
 	@UpdateTimestamp
-	@Column(name = "ts_fim")
+	@Column(name = "ts_att")
 	public Date dataAtualizacao;
 
 	@Column(name = "tx_desc", nullable = false)
@@ -58,6 +58,6 @@ public class Postagem extends PanacheEntityBase {
 	public Pessoa pessoa;
 
 	@JoinTable(name = "relacao_postagem_categoria", joinColumns = @JoinColumn(name = "cd_post"), inverseJoinColumns = @JoinColumn(name = "cd_cat"))
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.REFRESH)
 	public List<DominioCategoria> lstCategorias;
 }

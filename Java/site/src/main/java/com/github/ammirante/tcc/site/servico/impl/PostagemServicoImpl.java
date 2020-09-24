@@ -1,13 +1,11 @@
 package com.github.ammirante.tcc.site.servico.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import com.github.ammirante.tcc.site.dto.AdicionarPostagemDTO;
+import com.github.ammirante.tcc.site.dto.DominioCategoriaMapper;
 import com.github.ammirante.tcc.site.dto.PostagemMapper;
 import com.github.ammirante.tcc.site.entidade.DominioSituacao;
 import com.github.ammirante.tcc.site.entidade.Pessoa;
@@ -27,6 +25,9 @@ public class PostagemServicoImpl implements PostagemServico {
 	PostagemMapper postagemMapper;
 	
 	@Inject
+	DominioCategoriaMapper dominioCategoriaMapper;
+	
+	@Inject
 	DominioCategoriaServico dominioCategoriaServico;
 	
 	/** (non-Javadoc)
@@ -41,7 +42,7 @@ public class PostagemServicoImpl implements PostagemServico {
 		// Atribuindo a situação de ativo para o registro.
 		Postagem postagem = postagemMapper.toPostagem(adicionarPostagemDTO);
 		postagem.pessoa = pessoa;
-		postagem.lstCategorias = dominioCategoriaServico.recuperarDominiosCategoria(new ArrayList<>(Arrays.asList("Open Banking", "PIX")));
+		postagem.lstCategorias = dominioCategoriaMapper.toDominioCategoria(adicionarPostagemDTO.lstDominioCategoria);
 		postagem.situacao = DominioSituacao.findByNomeIgnoreCase(Constantes.ATIVO).firstResult();
 		
 		postagem.persist();

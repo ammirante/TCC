@@ -19,6 +19,9 @@ public class DominioCategoriaDTO extends CadastroDTO implements DTO {
 	private static final long serialVersionUID = 5636681731957775291L;
 	
 	@NotNull
+	public Long codigoCategoria;
+	
+	@NotNull
 	@NotEmpty
 	public String nome;
 	

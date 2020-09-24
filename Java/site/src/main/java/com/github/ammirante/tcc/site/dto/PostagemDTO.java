@@ -3,9 +3,6 @@ package com.github.ammirante.tcc.site.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.github.ammirante.tcc.site.entidade.DominioCategoria;
-import com.github.ammirante.tcc.site.entidade.DominioSituacao;
-
 /**
  * PostagemDTO
  *
@@ -23,8 +20,8 @@ public class PostagemDTO extends CadastroDTO {
 	public Date dataAtualizacao;
 	public String descricaoTexto;
 	public String referenciaImagemCapa;
-	public DominioSituacao situacao;
+	public DominioSituacaoDTO situacao;
 	public PessoaDTO pessoa;
-	public List<DominioCategoria> lstCategorias;
+	public List<DominioCategoriaDTO> lstCategorias;
 
 }

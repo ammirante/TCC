@@ -7,7 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-
 	<properties>
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
@@ -36,6 +35,7 @@
 
 	<modules>
 		<module>extracao-bacen</module>
+		<module>site</module>
 	</modules>
 
 </project>
