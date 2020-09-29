@@ -2,34 +2,21 @@ package com.github.ammirante.tcc.extracaobacen.extracao;
 
 import java.util.List;
 
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * DetalhamentoNormativo
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DetalhamentoNormativo {
 
+	@JsonProperty("conteudo")
 	private List<ExibeNormativoBacen> conteudo;
 	
-	/**
-	 * 
-	 */
-	/**
-	 * @param conteudo
-	 */
-	public DetalhamentoNormativo(List<ExibeNormativoBacen> conteudo) {
-		this.conteudo = conteudo;
-	}
-	
-	/**
-	 * @param conteudo
-	 * @return
-	 */
-	@JsonbCreator
-	public static DetalhamentoNormativo of(@JsonbProperty("conteudo") List<ExibeNormativoBacen> conteudo) {
-		return new DetalhamentoNormativo(conteudo); 
+	public DetalhamentoNormativo() {
+		
 	}
 
 	/**

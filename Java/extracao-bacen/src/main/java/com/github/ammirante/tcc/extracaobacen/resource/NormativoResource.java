@@ -1,5 +1,6 @@
 package com.github.ammirante.tcc.extracaobacen.resource;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -32,9 +33,10 @@ public class NormativoResource {
      * @param conteudo
      * @return
      * @throws URISyntaxException
+     * @throws IOException 
      */
     @GET
-    public RetornoBacen recuperarNormativos(@QueryParam("conteudo") String conteudo) throws URISyntaxException {
+    public RetornoBacen recuperarNormativos(@QueryParam("conteudo") String conteudo) throws URISyntaxException, IOException {
     	extracaoServico.extrairNormas(conteudo);
     	return null;
     }

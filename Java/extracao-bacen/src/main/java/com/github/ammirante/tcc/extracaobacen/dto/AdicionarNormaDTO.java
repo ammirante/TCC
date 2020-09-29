@@ -38,6 +38,8 @@ public class AdicionarNormaDTO extends CadastroDTO implements DTO {
 	@NotNull
 	public String texto;
 	
+	public String responsavel;
+	
 	public String normasVinculadas;
 	
 	public String diarioOficialUniao;

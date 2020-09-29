@@ -1,9 +1,10 @@
 package com.github.ammirante.tcc.extracaobacen.servico.impl;
 
+import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import com.github.ammirante.tcc.extracaobacen.dto.AdicionarNormaDTO;
@@ -31,23 +32,24 @@ public class NormativoServiceImpl implements NormativoService {
 	@Inject
 	NormaMapper normaMapper;
 	
-	@RestClient
 	@Inject
 	BacenExtracaoAPI bacenExtracaoAPI;
 	
 	/** (non-Javadoc)
 	 * Método responsável por persistir um normativo.
+	 * @throws IOException 
 	 * 
 	 * @see com.github.ammirante.tcc.extracaobacen.servico.NormativoService#persistirResumoNormativo(com.github.ammirante.tcc.extracaobacen.extracao.Normativo)
 	*/
 	@Override
-	public void persistirResumoNormativo(Normativo normativo) {
+	public void persistirResumoNormativo(Normativo normativo) throws IOException {
 		LOGGER.info("Iniciando a persistência da norma: " + normativo.toString());
 		AdicionarNormaDTO adicionarNormaDTO = new AdicionarNormaDTO();
 		adicionarNormaDTO.assunto = extrairAssunto(normativo.getAssuntoNormativo());
 		adicionarNormaDTO.dataDocumento = normativo.getData();
 		adicionarNormaDTO.numeroNorma = normativo.getNumeroNormativo().intValue();
 		adicionarNormaDTO.dominioNorma = DominioNorma.findByNomeIgnoreCase(normativo.getTipoNormativo()).firstResult();
+		adicionarNormaDTO.responsavel = normativo.getResponsavel();
 
 		// Recuperando os detalhes no normativo e preenchendo as informações faltantes.
 		recuperaDetalhesNormativo(adicionarNormaDTO);
@@ -61,8 +63,9 @@ public class NormativoServiceImpl implements NormativoService {
 	/**
 	 * Método responsável por requisitar os detalhes do normativo e preencher as informações faltantes.
 	 * @param adicionarNormaDTO
+	 * @throws IOException 
 	 */
-	private void recuperaDetalhesNormativo(AdicionarNormaDTO adicionarNormaDTO) {
+	private void recuperaDetalhesNormativo(AdicionarNormaDTO adicionarNormaDTO) throws IOException {
 		if(adicionarNormaDTO.dominioNorma.nome.equals(DominioNormaEnum.COMUNICADO.getNomeNorma())) {
 			DetalhamentoOutrosNormativos detalhamentoOutrosNormativos = bacenExtracaoAPI.recuperarOutrasNormas(adicionarNormaDTO.dominioNorma.nome, adicionarNormaDTO.numeroNorma);
 			ExibeOutrosNormativosBacen exibeOutrosNormativosBacen = detalhamentoOutrosNormativos.getConteudo().get(0);

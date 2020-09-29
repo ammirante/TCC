@@ -1,20 +1,34 @@
 package com.github.ammirante.tcc.extracaobacen.extracao;
 
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * ExibeNormativoBacen
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ExibeNormativoBacen {
 
+	@JsonProperty("TotalRows")
 	private String titulo;
+	
+	@JsonProperty("DOU")
 	private String diarioOficialUniao;
+	
+	@JsonProperty("Id")
 	private Integer id;
+	
+	@JsonProperty("NormasVinculadas")
 	private String normasVinculadas;
+	
+	@JsonProperty("Referencias")
 	private String referencias;
+	
+	@JsonProperty("Atualizacoes")
 	private String atualizacoes;
+	
+	@JsonProperty("Texto")
 	private String texto;
 	
 	/**
@@ -24,38 +38,6 @@ public class ExibeNormativoBacen {
 		
 	}
 	
-    /**
-     * @param tipo
-     * @param diarioOficialUniao
-     * @param id
-     * @param normasVinculadas
-     * @param referencias
-     * @param texto
-     */
-    public ExibeNormativoBacen(String titulo, String diarioOficialUniao, Integer id, String normasVinculadas, String referencias, String texto) {
-		this.titulo = titulo;
-		this.diarioOficialUniao = diarioOficialUniao;
-		this.id = id;
-		this.normasVinculadas = normasVinculadas;
-		this.referencias = referencias;
-		this.texto = texto;
-	}
-
-    /**
-     * @param titulo
-     * @param diarioOficialUniao
-     * @param id
-     * @param normasVinculadas
-     * @param referencias
-     * @param texto
-     * @return
-     */
-    @JsonbCreator
-    public static ExibeNormativoBacen of(@JsonbProperty("Titulo") String titulo, @JsonbProperty("DOU") String diarioOficialUniao, @JsonbProperty("Id") Integer id, @JsonbProperty("NormasVinculadas") String normasVinculadas, 
-    		@JsonbProperty("Referencias") String referencias, @JsonbProperty("Texto") String texto) {
-        return new ExibeNormativoBacen(titulo, diarioOficialUniao, id, normasVinculadas, referencias, texto);
-    }
-
 	/**
 	 * @return the titulo
 	 */

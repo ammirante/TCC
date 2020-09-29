@@ -24,6 +24,7 @@ public interface NormaMapper {
     @Mapping(target = "responsavel", ignore = true)
     @Mapping(source = "texto", target = "texto", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(source = "normasVinculadas", target = "normasVinculadas")
+    @Mapping(source = "responsavel", target = "responsavel")
     public Norma toNorma(AdicionarNormaDTO dt);
 	
 }

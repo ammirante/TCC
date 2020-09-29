@@ -1,10 +1,11 @@
 package com.github.ammirante.tcc.extracaobacen.servico.impl;
 
+import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import com.github.ammirante.tcc.extracaobacen.extracao.BacenExtracaoAPI;
@@ -13,6 +14,8 @@ import com.github.ammirante.tcc.extracaobacen.extracao.RetornoBacen;
 import com.github.ammirante.tcc.extracaobacen.servico.DominioTipoNormaService;
 import com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService;
 import com.github.ammirante.tcc.extracaobacen.servico.NormativoService;
+
+import io.quarkus.scheduler.Scheduled;
 
 /**
  * ExtracaoServiceImpl
@@ -23,7 +26,6 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 
 	private static final Logger LOGGER = Logger.getLogger(ExtracaoServiceImpl.class);
 	
-	@RestClient
 	@Inject
 	BacenExtracaoAPI bacenExtracaoAPI;
 	
@@ -33,15 +35,24 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 	@Inject
 	NormativoService normativoService;
 	
+	/**
+	 * @throws IOException
+	 */
+	/*@Scheduled(every="10s")
+	void recuperarNormaSchedule() throws IOException {
+		this.extrairNormas("");
+	}*/
+	
 	/** (non-Javadoc)
-	*  @see com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService#extrairNormas(java.lang.String)
+	 * @throws IOException 
+	 * @see com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService#extrairNormas(java.lang.String)
 	*/
 	@Override
 	@Transactional
-	public void extrairNormas(String conteudo) {
+	public void extrairNormas(String conteudo) throws IOException {
 		LOGGER.info("Iniciando a extração das normas");
 		long tempoInicialExtracao = System.currentTimeMillis();
-		RetornoBacen retornoBacen = bacenExtracaoAPI.buscaNormativos("ContentType:normativo AND contentSource:normativos AND open banking", "15", "0");
+    	RetornoBacen retornoBacen = bacenExtracaoAPI.buscaNormativos(conteudo);
 		long tempoFinalExtracao = System.currentTimeMillis();
 		LOGGER.info("Extração das normas finalizada. Tempo da extração em milisegundos: " + (tempoFinalExtracao - tempoInicialExtracao));
 

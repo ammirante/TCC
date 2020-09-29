@@ -5,15 +5,28 @@ import java.util.List;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * RetornoBacen
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RetornoBacen {
 
+	@JsonProperty("TotalRows")
 	private Integer totalRows;
+	
+	@JsonProperty("RowCount")
 	private Integer rowCount;
+	
+	@JsonProperty("Rows")
 	private List<Normativo> rows;
+	
+	public RetornoBacen() {
+		
+	}
 	
 	/**
 	 * @param totalRows

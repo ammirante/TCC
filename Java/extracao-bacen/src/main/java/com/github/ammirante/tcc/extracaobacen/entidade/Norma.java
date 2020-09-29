@@ -59,6 +59,7 @@ public class Norma extends PanacheEntityBase {
 	@OneToOne(cascade = CascadeType.ALL)
 	public DominioNorma dominioNorma;
 	
+	@Lob
 	@Column(name = "tx_norm_vinc")
 	public String normasVinculadas;
 }
