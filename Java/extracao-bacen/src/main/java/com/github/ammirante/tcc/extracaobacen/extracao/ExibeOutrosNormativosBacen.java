@@ -1,8 +1,5 @@
 package com.github.ammirante.tcc.extracaobacen.extracao;
 
-import javax.json.bind.annotation.JsonbCreator;
-import javax.json.bind.annotation.JsonbProperty;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,30 +29,6 @@ public class ExibeOutrosNormativosBacen {
 		
 	}
 	
-    /**
-     * @param titulo
-     * @param diarioOficialUniao
-     * @param id
-     * @param texto
-     */
-    public ExibeOutrosNormativosBacen(String titulo, Integer id, String texto) {
-		this.titulo = titulo;
-		this.id = id;
-		this.texto = texto;
-	}
-
-    /**
-     * @param titulo
-     * @param diarioOficialUniao
-     * @param id
-     * @param texto
-     * @return
-     */
-    @JsonbCreator
-    public static ExibeOutrosNormativosBacen of(@JsonbProperty("Titulo") String titulo, @JsonbProperty("Id") Integer id, @JsonbProperty("Texto") String texto) {
-        return new ExibeOutrosNormativosBacen(titulo, id, texto);
-    }
-
 	/**
 	 * @return the titulo
 	 */

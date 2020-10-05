@@ -61,7 +61,7 @@ public class PostagemResource {
     @POST
     @APIResponse(responseCode = "201", description = "Postagem cadastrada com suecsso.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = ConstraintViolationResponse.class)))
-    public Response adicionarRestaurante(@Valid AdicionarPostagemDTO adicionarPostagemDTO) {
+    public Response adicionarPostagem(@Valid AdicionarPostagemDTO adicionarPostagemDTO) {
     	postagemServico.cadastrarPostagem(adicionarPostagemDTO);
     	
     	return Response.status(Status.CREATED).build();
