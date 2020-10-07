@@ -1,6 +1,7 @@
 package com.github.ammirante.tcc.extracaobacen.servico.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.jboss.logging.Logger;
 
+import com.github.ammirante.tcc.extracaobacen.entidade.Norma;
 import com.github.ammirante.tcc.extracaobacen.extracao.BacenExtracaoAPI;
 import com.github.ammirante.tcc.extracaobacen.extracao.Normativo;
 import com.github.ammirante.tcc.extracaobacen.extracao.RetornoBacen;
@@ -38,18 +40,18 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 	/**
 	 * @throws IOException
 	 */
-	/*@Scheduled(every="10s")
+	@Scheduled(every="10s")
+	@Transactional
 	void recuperarNormaSchedule() throws IOException {
-		this.extrairNormas("");
-	}*/
+		this.extrairNormas("Open Banking");
+	}
 	
 	/** (non-Javadoc)
-	 * @throws IOException 
-	 * @see com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService#extrairNormas(java.lang.String)
+	*  @see com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService#extrairNormas(java.lang.String)
 	*/
 	@Override
 	@Transactional
-	public void extrairNormas(String conteudo) throws IOException {
+	public List<Norma> extrairNormas(String conteudo) throws IOException {
 		LOGGER.info("Iniciando a extração das normas");
 		long tempoInicialExtracao = System.currentTimeMillis();
     	RetornoBacen retornoBacen = bacenExtracaoAPI.buscaNormativos(conteudo);
@@ -64,5 +66,6 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 		}
 		long tempoFinalPersistencia = System.currentTimeMillis();
 		LOGGER.info("Finalizado o procedimento para persistência das normas e seus respectivos domínios. Tempo da persistência: " + (tempoFinalPersistencia - tempoInicialPersistencia));
+		return Norma.listAll();
 	}
 }

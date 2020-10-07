@@ -44,18 +44,23 @@ public class NormativoServiceImpl implements NormativoService {
 	@Override
 	public void persistirResumoNormativo(Normativo normativo) throws IOException {
 		LOGGER.info("Iniciando a persistência da norma: " + normativo.toString());
-		AdicionarNormaDTO adicionarNormaDTO = new AdicionarNormaDTO();
-		adicionarNormaDTO.assunto = extrairAssunto(normativo.getAssuntoNormativo());
-		adicionarNormaDTO.dataDocumento = normativo.getData();
-		adicionarNormaDTO.numeroNorma = normativo.getNumeroNormativo().intValue();
-		adicionarNormaDTO.dominioNorma = DominioNorma.findByNomeIgnoreCase(normativo.getTipoNormativo()).firstResult();
-		adicionarNormaDTO.responsavel = normativo.getResponsavel();
-
-		// Recuperando os detalhes no normativo e preenchendo as informações faltantes.
-		recuperaDetalhesNormativo(adicionarNormaDTO);
+		Norma norma = Norma.findByNumeroNorma(normativo.getNumeroNormativo()).firstResult();
 		
-		Norma norma = normaMapper.toNorma(adicionarNormaDTO);
-		norma.persist();
+		if(norma == null) {
+			AdicionarNormaDTO adicionarNormaDTO = new AdicionarNormaDTO();
+			adicionarNormaDTO.assunto = extrairAssunto(normativo.getAssuntoNormativo());
+			adicionarNormaDTO.dataDocumento = normativo.getData();
+			adicionarNormaDTO.numeroNorma = normativo.getNumeroNormativo().intValue();
+			adicionarNormaDTO.dominioNorma = DominioNorma.findByNomeIgnoreCase(normativo.getTipoNormativo()).firstResult();
+			adicionarNormaDTO.responsavel = normativo.getResponsavel();
+			
+			// Recuperando os detalhes no normativo e preenchendo as informações faltantes.
+			recuperaDetalhesNormativo(adicionarNormaDTO);
+			
+			norma = normaMapper.toNorma(adicionarNormaDTO);
+			norma.persist();
+			LOGGER.info("Normativo persistido.");
+		}
 		
 		LOGGER.info("Fim da persistência da norma: " + normativo.toString());
 	}

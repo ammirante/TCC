@@ -1,5 +1,6 @@
 package com.github.ammirante.tcc.extracaobacen.entidade;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Parameters;
 
 /**
  * 
@@ -62,4 +65,13 @@ public class Norma extends PanacheEntityBase {
 	@Lob
 	@Column(name = "tx_norm_vinc")
 	public String normasVinculadas;
+	
+	/**
+	 * Método responsável por retornar uma norma pelo número.
+	 * @param numeroNorma
+	 * @return
+	 */
+	public static PanacheQuery<PanacheEntityBase> findByNumeroNorma(BigDecimal numeroNorma) {
+		return Norma.find("numeroNorma = :numeroNorma", Parameters.with("numeroNorma", numeroNorma.intValue()).map());
+	}
 }
