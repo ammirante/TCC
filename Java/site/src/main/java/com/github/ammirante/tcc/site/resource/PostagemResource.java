@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -36,6 +37,7 @@ import com.github.ammirante.tcc.site.dto.PostagemMapper;
 import com.github.ammirante.tcc.site.entidade.DominioSituacao;
 import com.github.ammirante.tcc.site.entidade.Postagem;
 import com.github.ammirante.tcc.site.infra.ConstraintViolationResponse;
+import com.github.ammirante.tcc.site.security.Roles;
 import com.github.ammirante.tcc.site.servico.PostagemServico;
 
 /**
@@ -65,6 +67,7 @@ public class PostagemResource {
     @POST
     @APIResponse(responseCode = "201", description = "Postagem cadastrada com suecsso.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = ConstraintViolationResponse.class)))
+    @RolesAllowed({Roles.ADMIN})
     public Response adicionarPostagem(@Valid AdicionarPostagemDTO adicionarPostagemDTO) {
     	postagemServico.cadastrarPostagem(adicionarPostagemDTO);
     	return Response.status(Status.CREATED).build();
@@ -73,6 +76,7 @@ public class PostagemResource {
     @PUT
     @Path("{id}")
     @Transactional
+    @RolesAllowed({Roles.ADMIN})
     public void atualizarPostagem(@PathParam("id") Long idPostagem, AtualizarPostagemDTO atualizarPostagemDTO) {
     	Optional<Postagem> postagemOp = Postagem.findByIdOptional(idPostagem);
     	
@@ -91,6 +95,7 @@ public class PostagemResource {
     @DELETE
     @Path("{id}")
     @Transactional
+    @RolesAllowed({Roles.ADMIN})
     public void deletarPostagem(@PathParam("id") Long idPostagem) {
     	Optional<Postagem> postagemOp = Postagem.findByIdOptional(idPostagem);
     	
@@ -134,6 +139,7 @@ public class PostagemResource {
     @PATCH
     @Path("{id}/ativar")
     @Transactional
+    @RolesAllowed({Roles.ADMIN})
     public void ativarPostagem(@PathParam("id") Long idPostagem) {
     	Optional<Postagem> postagemOp = Postagem.findByIdOptional(idPostagem);
     	
@@ -152,6 +158,7 @@ public class PostagemResource {
     @PATCH
     @Path("{id}/inativar")
     @Transactional
+    @RolesAllowed({Roles.ADMIN})
     public void inativarPostagem(@PathParam("id") Long idPostagem) {
     	Optional<Postagem> postagemOp = Postagem.findByIdOptional(idPostagem);
     	

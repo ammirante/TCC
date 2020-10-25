@@ -37,8 +37,8 @@ public class Pessoa extends PanacheEntityBase {
 	@Column(name = "ts_cad", nullable = false, updatable = false)
 	public Date dataCadastro;
 	
-	@Column(name = "ts_nsc")
-	public Date dataNascimento;
+	/*@Column(name = "ts_nsc")
+	public Date dataNascimento;*/
 	
 	@Column(name = "tx_mail", length = 100)
 	public String email;
