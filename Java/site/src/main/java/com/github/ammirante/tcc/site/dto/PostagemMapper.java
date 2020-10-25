@@ -17,7 +17,7 @@ public interface PostagemMapper {
 	 * @param adicionarPostagemDTO
 	 * @return
 	 */
-	@Mapping(source = "lstDominioCategoria", target = "lstCategorias")
+	@Mapping(target = "lstCategorias", ignore = true)
 	@Mapping(source = "referenciaImagemCapa", target = "referenciaImagemCapa")
 	@Mapping(source = "descricaoTexto", target = "descricaoTexto")
 	@Mapping(target = "dataAtualizacao", ignore = true)
@@ -32,6 +32,7 @@ public interface PostagemMapper {
 	 * @return
 	 */
 	@Mapping(source = "situacao", target = "situacao")
+	@Mapping(target = "dataPostagem", dateFormat = "dd/MM/yyyy HH:mm:ss")
 	public PostagemDTO toPostagemDTO(Postagem postagem);
 	
 	/**

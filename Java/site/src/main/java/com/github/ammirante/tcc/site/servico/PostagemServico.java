@@ -12,5 +12,5 @@ public interface PostagemServico {
 	 * @param adicionarPostagemDTO
 	 */
 	void cadastrarPostagem(AdicionarPostagemDTO adicionarPostagemDTO);
-	
+
 }

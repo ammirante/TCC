@@ -30,6 +30,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import com.github.ammirante.tcc.site.dto.AdicionarPostagemDTO;
 import com.github.ammirante.tcc.site.dto.AtualizarPostagemDTO;
+import com.github.ammirante.tcc.site.dto.DominioCategoriaMapper;
 import com.github.ammirante.tcc.site.dto.PostagemDTO;
 import com.github.ammirante.tcc.site.dto.PostagemMapper;
 import com.github.ammirante.tcc.site.entidade.DominioSituacao;
@@ -53,6 +54,9 @@ public class PostagemResource {
 	
 	@Inject
 	PostagemMapper postagemMapper;
+	
+	@Inject
+	DominioCategoriaMapper dominioCategoriaMapper;
 
     /**
      * @param adicionarPostagemDTO
@@ -63,7 +67,6 @@ public class PostagemResource {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = ConstraintViolationResponse.class)))
     public Response adicionarPostagem(@Valid AdicionarPostagemDTO adicionarPostagemDTO) {
     	postagemServico.cadastrarPostagem(adicionarPostagemDTO);
-    	
     	return Response.status(Status.CREATED).build();
     }
     
@@ -118,6 +121,7 @@ public class PostagemResource {
      * @return
      */
     @GET
+    @Transactional
     public List<PostagemDTO> recuperarPostagens() {
     	Stream<Postagem> postagens = Postagem.streamAll();
     	

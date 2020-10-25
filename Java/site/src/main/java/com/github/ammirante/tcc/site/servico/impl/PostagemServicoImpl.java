@@ -1,5 +1,8 @@
 package com.github.ammirante.tcc.site.servico.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -7,6 +10,7 @@ import javax.transaction.Transactional;
 import com.github.ammirante.tcc.site.dto.AdicionarPostagemDTO;
 import com.github.ammirante.tcc.site.dto.DominioCategoriaMapper;
 import com.github.ammirante.tcc.site.dto.PostagemMapper;
+import com.github.ammirante.tcc.site.entidade.DominioCategoria;
 import com.github.ammirante.tcc.site.entidade.DominioSituacao;
 import com.github.ammirante.tcc.site.entidade.Pessoa;
 import com.github.ammirante.tcc.site.entidade.Postagem;
@@ -39,10 +43,15 @@ public class PostagemServicoImpl implements PostagemServico {
 		// Recuperando a Pessoa pelo nome de usuário.
 		Pessoa pessoa = Pessoa.findByNomeUsuarioIgnoreCase(adicionarPostagemDTO.nomeUsuario).firstResult();
 		
+		List<DominioCategoria> lstDominioCategoria = new ArrayList<>(adicionarPostagemDTO.lstDominioCategoria.size());
+		for(Integer codigoCategoria : adicionarPostagemDTO.lstDominioCategoria) {
+			lstDominioCategoria.add(dominioCategoriaServico.recuperarDominioCategoria(codigoCategoria.longValue()));
+		}
+		
 		// Atribuindo a situação de ativo para o registro.
 		Postagem postagem = postagemMapper.toPostagem(adicionarPostagemDTO);
 		postagem.pessoa = pessoa;
-		postagem.lstCategorias = dominioCategoriaMapper.toDominioCategoria(adicionarPostagemDTO.lstDominioCategoria);
+		postagem.lstCategorias = lstDominioCategoria;
 		postagem.situacao = DominioSituacao.findByNomeIgnoreCase(Constantes.ATIVO).firstResult();
 		
 		postagem.persist();

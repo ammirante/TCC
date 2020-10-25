@@ -33,7 +33,7 @@ public class AdicionarPostagemDTO extends CadastroDTO implements DTO {
 	public String referenciaImagemCapa;
 	
 	@NotNull
-	public List<DominioCategoriaDTO> lstDominioCategoria;
+	public List<Integer> lstDominioCategoria;
 	
 	@NotNull
 	public String nomeUsuario;

@@ -15,4 +15,10 @@ public interface DominioCategoriaServico {
 	 */
 	List<DominioCategoria> recuperarDominiosCategoria(List<String> nomes);
 	
+	/**
+	 * @param codigoCategoria
+	 * @return
+	 */
+	DominioCategoria recuperarDominioCategoria(Long codigoCategoria);
+	
 }

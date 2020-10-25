@@ -34,4 +34,12 @@ public class DominioCategoriaServicoImpl implements DominioCategoriaServico {
 		return lstDominiosSelecionados;
 	}
 
+	/** (non-Javadoc)
+	*  @see com.github.ammirante.tcc.site.servico.DominioCategoriaServico#recuperarDominioCategoria(java.lang.Integer)
+	*/
+	@Override
+	public DominioCategoria recuperarDominioCategoria(Long codigoCategoria) {
+		return DominioCategoria.findById(codigoCategoria);
+	}
+
 }
