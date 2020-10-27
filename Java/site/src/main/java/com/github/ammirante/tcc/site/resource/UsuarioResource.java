@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -21,6 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import com.github.ammirante.tcc.site.dto.AdicionarPessoaDTO;
+import com.github.ammirante.tcc.site.dto.AutenticacaoDTO;
 import com.github.ammirante.tcc.site.dto.PessoaMapper;
 import com.github.ammirante.tcc.site.entidade.Pessoa;
 import com.github.ammirante.tcc.site.infra.ConstraintViolationResponse;
@@ -70,15 +70,18 @@ public class UsuarioResource {
      */
     @GET
     @Path("/login")
-    public String login(@QueryParam("login")String login, @QueryParam("senha") String senha) {
+    public AutenticacaoDTO login(@QueryParam("login")String login, @QueryParam("senha") String senha) {
         Pessoa pessoa = Pessoa.find("nomeUsuario", login).firstResult();
         if(pessoa == null || !pessoa.senha.equals(senha)) {
             throw new WebApplicationException(Response.status(404).entity("Usuário ou senha inválido.").build());
         }
-        return tokenService.generateAdminToken(pessoa.email, senha);
+        
+        String token = tokenService.generateAdminToken(pessoa.email, senha);
+        
+        return new AutenticacaoDTO(token, login, pessoa.email);
     }
     
-    @PUT
+    @GET
     @Path("/recuperar-senha")
     @Transactional
     public Response recuperarSenha(@QueryParam("login")String login, @QueryParam("email")String email) {
