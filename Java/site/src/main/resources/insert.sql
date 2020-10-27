@@ -1,0 +1,1 @@
+INSERT INTO public.dominio_situacao VALUES(1, 'Ativo'), (2, 'Inativo');
