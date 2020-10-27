@@ -40,7 +40,7 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 	/**
 	 * @throws IOException
 	 */
-	@Scheduled(every="0 0 */2 ? * *")
+	@Scheduled(every="0 0 8 * * ?")
 	@Transactional
 	void recuperarNormaSchedule() throws IOException {
 		this.extrairNormas("Open Banking");
