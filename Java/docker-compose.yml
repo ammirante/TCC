@@ -35,4 +35,9 @@ services:
             - "16686:16686"
             - "14268:14268"
             - "14250:14250"
-            - "9411:9411"    
+            - "9411:9411"
+    app_site:
+        container_name: app_site
+        image: quarkus/site-tcc        
+        ports:
+            - "8080:8080"
