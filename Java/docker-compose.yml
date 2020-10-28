@@ -10,7 +10,9 @@ services:
         ports:
             - "5432:5432"
         networks:
-            - network-extracao
+        networks:
+            external: true
+            name: network-extracao            
     postgres_site:
         container_name: postgres_site
         image: postgres:12.2
@@ -21,7 +23,8 @@ services:
         ports:
             - "5422:5432"
         networks:
-            - network-site
+            external: true
+            name: network-site
     keycloak_ifood:
         container_name: keycloak_tcc
         image: quay.io/keycloak/keycloak:11.0.1
