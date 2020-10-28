@@ -20,6 +20,8 @@ services:
             POSTGRES_PASSWORD: site
         ports:
             - "5422:5432"
+        expose:
+            - "5422"
         networks:
             - network-site
     keycloak_ifood:
@@ -50,7 +52,9 @@ services:
         environment:
             QUARKUS_DATASOURCE_URL: jdbc:postgresql://postgres_site:5432/postgres
         ports:
-            - "8080:8080" #specify ports forewarding
+            - "8080:8080"
+        expose:
+            - "8080"
         depends_on:
             - postgres_site
         networks:
