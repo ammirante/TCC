@@ -3,6 +3,7 @@ services:
     postgres_cadastro:
         container_name: postgres_extracao
         image: postgres:12.2
+		command: tail -F anything
         environment:
             POSTGRES_USER: extracao
             POSTGRES_PASSWORD: extracao
@@ -11,6 +12,7 @@ services:
     postgres_site:
         container_name: postgres_site
         image: postgres:12.2
+		command: tail -F anything
         environment:
             POSTGRES_USER: site
             POSTGRES_PASSWORD: site
@@ -19,6 +21,7 @@ services:
     keycloak_ifood:
         container_name: keycloak_tcc
         image: quay.io/keycloak/keycloak:11.0.1
+		command: tail -F anything
         environment:
             KEYCLOAK_USER: admin
             KEYCLOAK_PASSWORD: admin
@@ -27,6 +30,7 @@ services:
     jaeger_ifood:
         container_name: jaeger_tcc
         image: jaegertracing/all-in-one:1.19
+		command: tail -F anything
         ports:
             - "5775:5775/udp"
             - "6831:6831/udp"
