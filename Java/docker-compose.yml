@@ -9,6 +9,8 @@ services:
             POSTGRES_PASSWORD: extracao
         ports:
             - "5432:5432"
+        networks:
+            - network-extracao
     postgres_site:
         container_name: postgres_site
         image: postgres:12.2
@@ -18,6 +20,8 @@ services:
             POSTGRES_PASSWORD: site
         ports:
             - "5422:5432"
+        networks:
+            - network-site
     keycloak_ifood:
         container_name: keycloak_tcc
         image: quay.io/keycloak/keycloak:11.0.1
