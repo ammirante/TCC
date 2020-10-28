@@ -49,14 +49,16 @@ services:
     post-service: 
         image: quarkus/site-tcc-jvm
         build: 
-            context: ./post-service
+            context: ./site
             dockerfile: src/main/docker/Dockerfile.multistage
         environment:
             QUARKUS_DATASOURCE_URL: jdbc:postgresql://postgres_site:5432/blogdb
         ports:
             - "8080:8080" #specify ports forewarding
         depends_on:
-            - postgres_site   
+            - postgres_site
+        networks:
+            - network-site 
 networks:
     network-extracao:
         driver: bridge
