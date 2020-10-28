@@ -1,1 +1,2 @@
 INSERT INTO public.dominio_situacao VALUES(1, 'Ativo'), (2, 'Inativo');
+INSERT INTO public.dominio_categoria VALUES(2, 'PIX'), (3, 'Educação Financeira'), (4, 'Transformação Digital'), (1, 'Open Banking');

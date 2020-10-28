@@ -1,1 +1,0 @@
-INSERT INTO public.dominio_categoria VALUES(2, 'PIX'), (3, 'Educação Financeira'), (4, 'Transformação Digital'), (1, 'Open Banking');
