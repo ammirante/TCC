@@ -4,6 +4,7 @@ services:
         container_name: postgres_extracao
         image: postgres:12.2
         command: tail -F anything
+        restart: always
         environment:
             POSTGRES_USER: extracao
             POSTGRES_PASSWORD: extracao
@@ -14,6 +15,7 @@ services:
     postgres_site:
         container_name: postgres_site
         image: postgres:12.2
+        restart: always
         command: tail -F anything
         environment:
             POSTGRES_USER: site
@@ -44,6 +46,17 @@ services:
             - "14268:14268"
             - "14250:14250"
             - "9411:9411"
+    post-service: 
+        image: hantsy/quarkus-post-service
+        build: 
+            context: ./post-service
+            dockerfile: src/main/docker/Dockerfile.multistage
+        environment:
+            QUARKUS_DATASOURCE_URL: jdbc:postgresql://postgres_site:5432/blogdb
+        ports:
+            - "8080:8080" #specify ports forewarding
+        depends_on:
+            - postgres_site   
 networks:
     network-extracao:
         driver: bridge
