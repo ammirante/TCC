@@ -10,7 +10,7 @@ COPY src/ /usr/src/app/src/
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN mvn clean package -Pnative -Dquarkus.datasource.jdbc.url=$QUARKUS_DATASOURCE_URL
+RUN mvn clean package -Pnative -Dquarkus.datasource.jdbc.url=$QUARKUS_DATASOURCE_URL -Dquarkus.native.container-build=true
 #RUN mvn clean package -Pnative -DskipTests -Dmaven.test.skip=true
 
 ## Stage 2 : create the docker final image
