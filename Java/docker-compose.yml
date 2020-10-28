@@ -56,7 +56,7 @@ services:
         depends_on:
             - postgres_site
         networks:
-            - ipv4_address: 192.168.0.4
+            ipv4_address: "192.168.0.4"
 networks:
     network-extracao:
         driver: bridge
