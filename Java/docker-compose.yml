@@ -23,7 +23,7 @@ services:
         expose:
             - "5422"
         networks:
-            - network-site
+            ipv4_address: "192.168.0.4"
     keycloak_ifood:
         container_name: keycloak_tcc
         image: quay.io/keycloak/keycloak:11.0.1
@@ -55,8 +55,6 @@ services:
             - "8080"
         depends_on:
             - postgres_site
-        networks:
-            ipv4_address: "192.168.0.4"
 networks:
     network-extracao:
         driver: bridge
