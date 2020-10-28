@@ -49,8 +49,6 @@ services:
         build: 
             context: ./site
             dockerfile: src/main/docker/Dockerfile.multistage
-        environment:
-            QUARKUS_DATASOURCE_URL: jdbc:postgresql://postgres_site:5432/postgres
         ports:
             - "8080:8080"
         expose:
@@ -58,9 +56,11 @@ services:
         depends_on:
             - postgres_site
         networks:
-            - network-site 
+            - ipv4_address: 192.168.0.4
 networks:
     network-extracao:
         driver: bridge
     network-site:
-        driver: bridge
+        driver: default
+        config:
+            - subnet: 192.168.0.0/24
