@@ -47,7 +47,7 @@ services:
             - "14250:14250"
             - "9411:9411"
     post-service: 
-        image: hantsy/quarkus-post-service
+        image: quarkus/site-tcc-jvm
         build: 
             context: ./post-service
             dockerfile: src/main/docker/Dockerfile.multistage
