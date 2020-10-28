@@ -1,17 +1,15 @@
 # Stage 1 : build with maven builder image with native capabilities
 FROM quay.io/quarkus/centos-quarkus-maven:20.2.0-java11 AS build
-ARG QUARKUS_DATASOURCE_URL
-RUN echo "<QUARKUS_DATASOURCE_URL>: $QUARKUS_DATASOURCE_URL"
-# ENV QUARKUS_DATASOURCE_URL $QUARKUS_DATASOURCE_URL
-WORKDIR /usr/src/app
-COPY pom.xml .
-RUN mvn -B dependency:go-offline -Pnative
-COPY src/ /usr/src/app/src/
+ARG QUARKUS_DATASOURCE_JDBC_URL
+RUN echo "<QUARKUS_DATASOURCE_JDBC_URL>: $QUARKUS_DATASOURCE_JDBC_URL"
+COPY pom.xml /usr/src/app/
+RUN mvn -f /usr/src/app/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
+COPY src /usr/src/app/src
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN mvn clean package -Dquarkus.native.container-build=true-Dquarkus.datasource.jdbc.url=$QUARKUS_DATASOURCE_URL
-#RUN mvn clean package -Dquarkus.native.container-build=true -DskipTests -Dmaven.test.skip=true
+RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal
