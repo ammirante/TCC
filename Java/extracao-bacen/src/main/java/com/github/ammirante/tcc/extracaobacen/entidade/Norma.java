@@ -66,6 +66,9 @@ public class Norma extends PanacheEntityBase {
 	@Column(name = "tx_norm_vinc")
 	public String normasVinculadas;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	public DominioConteudo dominioConteudo;
+	
 	/**
 	 * Método responsável por retornar uma norma pelo número.
 	 * @param numeroNorma
@@ -73,5 +76,15 @@ public class Norma extends PanacheEntityBase {
 	 */
 	public static PanacheQuery<PanacheEntityBase> findByNumeroNorma(BigDecimal numeroNorma) {
 		return Norma.find("numeroNorma = :numeroNorma", Parameters.with("numeroNorma", numeroNorma.intValue()).map());
+	}
+	
+	/**
+	 * Método responsável por retornar os normativos de acordo com o Domínio Conteúdo.
+	 * 
+	 * @param conteudo
+	 * @return
+	 */
+	public static PanacheQuery<PanacheEntityBase> findByDominioConteudo(String conteudo) {
+		return Norma.find("UPPER(dominioConteudo.nome) = UPPER(:conteudo)", Parameters.with("conteudo", conteudo).map());
 	}
 }

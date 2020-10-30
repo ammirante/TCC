@@ -19,6 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import com.github.ammirante.tcc.extracaobacen.dto.NormaDTO;
 import com.github.ammirante.tcc.extracaobacen.dto.NormaMapper;
+import com.github.ammirante.tcc.extracaobacen.entidade.DominioConteudo;
 import com.github.ammirante.tcc.extracaobacen.entidade.Norma;
 import com.github.ammirante.tcc.extracaobacen.servico.ExtracaoService;
 
@@ -47,7 +48,16 @@ public class NormativoResource {
     @GET
     @Transactional
     public List<NormaDTO> recuperarNormativos(@QueryParam("conteudo") String conteudo) throws URISyntaxException, IOException {
-    	Stream<Norma> normas = Norma.streamAll();
+    	DominioConteudo dominioConteudo = DominioConteudo.findByNomeIgnoreCase(conteudo).firstResult();
+    	if(dominioConteudo == null) {
+    		dominioConteudo = new DominioConteudo();
+    		dominioConteudo.nome = conteudo;
+    		dominioConteudo.persist();
+    		extracaoServico.extrairNormas(conteudo);
+    	}
+    	
+    	
+    	Stream<Norma> normas = Norma.findByDominioConteudo(conteudo).stream();
     	
     	return normas.map(norma -> normaMapper.toNormaDTO(norma)).collect(Collectors.toList());
     }

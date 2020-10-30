@@ -4,17 +4,17 @@ import com.github.ammirante.tcc.extracaobacen.infra.DTO;
 import com.github.ammirante.tcc.extracaobacen.infra.ValidDTO;
 
 /**
- * DominioNormaDTO
+ * NormaDTO
  *
  */
 @ValidDTO
-public class DominioNormaDTO extends CadastroDTO implements DTO {
-	
+public class DominioConteudoDTO extends CadastroDTO implements DTO {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4356571659973292139L;
+	private static final long serialVersionUID = -634379286057581160L;
 	
-	public Long codigoTipoConteudo;
+	public Long codigoTipoNorma;
 	public String nome;
 }

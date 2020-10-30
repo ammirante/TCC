@@ -12,8 +12,9 @@ public interface NormativoService {
 
 	/**
 	 * @param normativo
+	 * @param conteudo
 	 * @throws IOException
 	 */
-	void persistirResumoNormativo(Normativo normativo) throws IOException;
+	void persistirResumoNormativo(Normativo normativo, String conteudo) throws IOException;
 	
 }

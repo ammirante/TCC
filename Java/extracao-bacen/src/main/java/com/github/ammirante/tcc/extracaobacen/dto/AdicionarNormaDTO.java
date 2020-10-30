@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.github.ammirante.tcc.extracaobacen.entidade.DominioConteudo;
 import com.github.ammirante.tcc.extracaobacen.entidade.DominioNorma;
 import com.github.ammirante.tcc.extracaobacen.infra.DTO;
 import com.github.ammirante.tcc.extracaobacen.infra.ValidDTO;
@@ -37,6 +38,9 @@ public class AdicionarNormaDTO extends CadastroDTO implements DTO {
 	@NotEmpty
 	@NotNull
 	public String texto;
+	
+	@NotNull
+	public DominioConteudo dominioConteudo;
 	
 	public String responsavel;
 	

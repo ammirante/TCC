@@ -22,6 +22,7 @@ public class NormaDTO extends CadastroDTO implements DTO {
 	public String assunto;
 	public String responsavel;
 	public DominioNormaDTO dominioNorma;
+	public DominioConteudoDTO dominioConteudo;
 	public Date dataDocumento; 
 	public String texto;
 	public String diarioOficialUniao;

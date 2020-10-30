@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.jboss.logging.Logger;
 
+import com.github.ammirante.tcc.extracaobacen.entidade.DominioConteudo;
 import com.github.ammirante.tcc.extracaobacen.entidade.Norma;
 import com.github.ammirante.tcc.extracaobacen.extracao.BacenExtracaoAPI;
 import com.github.ammirante.tcc.extracaobacen.extracao.Normativo;
@@ -41,10 +42,18 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 	/**
 	 * @throws IOException
 	 */
-	@Scheduled(cron = "0 0 8 * * ?")
+	@Scheduled(cron = "0 0/10 0 ? * * *")
 	@Transactional
 	void recuperarNormaSchedule() throws IOException {
-		this.extrairNormas("Open Banking");
+		List<DominioConteudo> lstDominioConteudo = DominioConteudo.listAll();
+		
+		lstDominioConteudo.forEach(dominioConteudo -> {
+			try {
+				this.extrairNormas(dominioConteudo.nome);
+			} catch (IOException e) {
+				LOGGER.error("Erro ao extrair o normativo" + e.getMessage());
+			}
+		});
 	}
 	
 	/** (non-Javadoc)
@@ -63,7 +72,7 @@ public class ExtracaoServiceImpl implements ExtracaoService {
 		long tempoInicialPersistencia = System.currentTimeMillis();
 		for(Normativo normativo : retornoBacen.getRows()) {
 			dominioTipoNormaService.persistir(normativo.getTipoNormativo());
-			normativoService.persistirResumoNormativo(normativo);
+			normativoService.persistirResumoNormativo(normativo, conteudo);
 		}
 		long tempoFinalPersistencia = System.currentTimeMillis();
 		LOGGER.info("Finalizado o procedimento para persistência das normas e seus respectivos domínios. Tempo da persistência: " + (tempoFinalPersistencia - tempoInicialPersistencia));

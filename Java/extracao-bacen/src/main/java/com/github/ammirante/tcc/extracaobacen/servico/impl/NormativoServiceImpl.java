@@ -9,6 +9,7 @@ import org.jboss.logging.Logger;
 
 import com.github.ammirante.tcc.extracaobacen.dto.AdicionarNormaDTO;
 import com.github.ammirante.tcc.extracaobacen.dto.NormaMapper;
+import com.github.ammirante.tcc.extracaobacen.entidade.DominioConteudo;
 import com.github.ammirante.tcc.extracaobacen.entidade.DominioNorma;
 import com.github.ammirante.tcc.extracaobacen.entidade.Norma;
 import com.github.ammirante.tcc.extracaobacen.extracao.BacenExtracaoAPI;
@@ -36,13 +37,12 @@ public class NormativoServiceImpl implements NormativoService {
 	BacenExtracaoAPI bacenExtracaoAPI;
 	
 	/** (non-Javadoc)
-	 * Método responsável por persistir um normativo.
-	 * @throws IOException 
-	 * 
-	 * @see com.github.ammirante.tcc.extracaobacen.servico.NormativoService#persistirResumoNormativo(com.github.ammirante.tcc.extracaobacen.extracao.Normativo)
+	* Método responsável por persistir um normativo.
+	* 
+	*  @see com.github.ammirante.tcc.extracaobacen.servico.NormativoService#persistirResumoNormativo(com.github.ammirante.tcc.extracaobacen.extracao.Normativo, java.lang.String)
 	*/
 	@Override
-	public void persistirResumoNormativo(Normativo normativo) throws IOException {
+	public void persistirResumoNormativo(Normativo normativo, String conteudo) throws IOException {
 		LOGGER.info("Iniciando a persistência da norma: " + normativo.toString());
 		Norma norma = Norma.findByNumeroNorma(normativo.getNumeroNormativo()).firstResult();
 		
@@ -53,6 +53,7 @@ public class NormativoServiceImpl implements NormativoService {
 			adicionarNormaDTO.numeroNorma = normativo.getNumeroNormativo().intValue();
 			adicionarNormaDTO.dominioNorma = DominioNorma.findByNomeIgnoreCase(normativo.getTipoNormativo()).firstResult();
 			adicionarNormaDTO.responsavel = normativo.getResponsavel();
+			adicionarNormaDTO.dominioConteudo = DominioConteudo.findByNomeIgnoreCase(conteudo).firstResult();
 			
 			// Recuperando os detalhes no normativo e preenchendo as informações faltantes.
 			recuperaDetalhesNormativo(adicionarNormaDTO);

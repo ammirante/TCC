@@ -24,9 +24,11 @@ public interface NormaMapper {
     @Mapping(source = "texto", target = "texto", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(source = "normasVinculadas", target = "normasVinculadas")
     @Mapping(source = "responsavel", target = "responsavel")
+    @Mapping(source = "dominioConteudo", target = "dominioConteudo")
     Norma toNorma(AdicionarNormaDTO dt);
     
     @Mapping(target = "dominioNorma", source = "dominioNorma")
+    @Mapping(target = "dominioConteudo", source = "dominioConteudo")
     NormaDTO toNormaDTO(Norma norma);
 	
 }
