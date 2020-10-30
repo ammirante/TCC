@@ -44,6 +44,17 @@ services:
             - "14268:14268"
             - "14250:14250"
             - "9411:9411"
+    site-service: 
+        image: quarkus/site-tcc-jvm
+        build: 
+            context: ./site
+            dockerfile: src/main/docker/Dockerfile.multistage
+        ports:
+            - "8080:8080"
+        depends_on:
+            - postgres_site
+        networks:
+            - network-site 
 networks:
     network-extracao:
         driver: bridge
