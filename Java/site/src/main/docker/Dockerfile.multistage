@@ -2,10 +2,6 @@
 FROM quay.io/quarkus/centos-quarkus-maven:20.2.0-java11 AS build
 RUN mkdir -p /tmp/ssl \
   && cp /opt/graalvm/lib/security/cacerts /tmp/ssl/
-  
-FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 AS build
-RUN mkdir -p /tmp/ssl \
-  && cp /opt/graalvm/lib/security/cacerts /tmp/ssl/
 COPY pom.xml /usr/src/app/
 RUN mvn -f /usr/src/app/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
 COPY src /usr/src/app/src
