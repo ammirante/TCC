@@ -1,0 +1,63 @@
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    margin-bottom: 10rem;
+
+    h1 {
+        margin: 4rem 0;
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 28px;
+        line-height: 120%;
+    }
+}
+
+.search-form {
+    margin-top: 10px;
+
+    .input-group{
+        i {
+            margin-right: 1rem;
+        }
+
+        i:hover{
+            color:rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+.search-result {
+    margin-bottom: 4rem;
+
+    p {
+        margin: 0px;
+        font-family: Open Sans;
+        font-size: 21px;
+        line-height: 120%;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: underline;
+        cursor: pointer;
+        position: relative;
+        top: 1rem;
+    }
+}
+
+.hr-line-dashed {
+    border-top: 1px dashed #e7eaec;
+    color: #ffffff;
+    background-color: #ffffff;
+    height: 1px;
+    margin: 20px 0;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 100;
+}

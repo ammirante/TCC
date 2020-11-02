@@ -1,0 +1,117 @@
+.container-fluid > .row > .col-5{
+    padding-left: 8rem;
+  }
+  
+  .home-cima{
+    width: 40%;
+    height: auto;
+    position: absolute;
+    right: 0;
+    top: -10rem;
+  }
+  
+  .home-baixo{
+    position: absolute;
+    top: 25rem;
+    left: -5rem;
+    width: 40%;
+    height: auto;
+  }
+  
+  .home-grafico{
+    position: absolute;
+    width: 70%;
+    height: auto;
+    top: 69%;
+    right: 50%;
+  }
+  
+  h2{
+    font-family: Domine;
+    font-size: 5rem;
+    line-height: 110%;
+  }
+  
+  h6{
+    font-family: Open Sans;
+    font-size: 2rem;
+  }
+  
+  .btn-light{
+    background: #FFFFFF;
+    border: 1px solid #14213D;
+    box-sizing: border-box;
+    border-radius: 30px;
+    color: #14213D;
+    font-family: Open Sans;
+    font-size: 1rem;
+    height: 4rem;
+    width: 15rem;
+  }
+  
+  .row{
+    margin-top: 2rem;
+  }
+
+  
+.login-form .form-control {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 50px;
+  line-height: 50px;
+}
+.main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 66%;
+}
+
+.login-form .form-group {
+  margin-bottom:10px;
+}
+.login-form{ text-align:center;}
+.forgot a {
+  color: #777777;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.login-form  .btn.btn-primary {
+  background: #f0ad4e none repeat scroll 0 0;
+  border-color: #f0ad4e;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+}
+.forgot {
+  text-align: left; margin-bottom:30px;
+
+  a{
+      cursor: pointer;
+  }
+}
+.botto-text {
+  color: #ffffff;
+  font-size: 14px;
+  margin: auto;
+}
+.login-form .btn.btn-primary.reset {
+  background: #ff9900 none repeat scroll 0 0;
+}
+.back { text-align: left; margin-top:10px;}
+.back a {color: #444444; font-size: 13px;text-decoration: none;}
+
+.btn-primary {
+    background: #f0ad4e none repeat scroll 0 0;
+    border-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}

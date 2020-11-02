@@ -1,0 +1,118 @@
+<router-outlet></router-outlet>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="titulo">Blog</h2>
+    </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Cadastro de postagem</h4>
+        <button type="button" class="close" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formularioPostagem">
+          <div class="form-group">
+            <label>Título:</label>
+            <div class="input-group">
+              <div class="input-group-append">
+                <input class="ss-form-control" placeholder="Título da postagem" type="text" formControlName="titulo">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Referência imagem:</label>
+            <div class="input-group">
+              <div class="input-group-append">
+                <input class="ss-form-control" placeholder="URL referência imagem" type="text"
+                  formControlName="referenciaImagemCapa">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Categorias:</label>
+            <div class="input-group" *ngIf="!visualizacao">
+              <div class="input-group-append" *ngFor="let categoria of categorias">
+                <label>
+                  <input class="ss-form-control" type="checkbox" [value]="categoria.codigoCategoria"
+                    (change)="onCheckChange($event)">
+                  {{categoria.nome}} &nbsp; &nbsp;
+                </label>
+              </div>
+            </div>
+            <div class="input-group" *ngIf="visualizacao">
+              <div class="input-group-append" *ngFor="let categoria of categoriasVisualizacao">
+                <label>
+                  - {{categoria.nome}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Descrição:</label>
+            <div class="input-group">
+              <div class="input-group-append" *ngIf="!visualizacao">
+                <angular-editor formControlName="descricaoTexto"></angular-editor>
+              </div>
+              <div class="input-group-append" *ngIf="visualizacao">
+                <label [innerHTML]="formularioPostagem.controls['descricaoTexto'].value"></label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="salvarPost()" *ngIf="!visualizacao">Salvar</button>
+      </div>
+    </ng-template>
+
+      <div class="search-form">
+        <div class="row">
+          <form>
+            <div class="input-group">
+              <i class="fa fa-search fa-2x" aria-hidden="true" (click)="pesquisar()"></i>
+              <input type="text" placeholder="Buscar artigo" name="search" class="form-control input-lg" id="pesquisa-norma"
+                type="text" [(ngModel)]="pesquisa">
+            </div>
+          </form>
+        </div>
+      </div>
+      
+
+      <div class="content">
+        <div class="row justify-content-center">
+          <div class="col-md-10 blogShort" *ngFor="let postagem of postagens">
+            <img [src]="convertImage(postagem.referenciaImagemCapa)" alt="post img"
+              class="pull-left img-responsive thumb margin10 img-thumbnail">
+            <h6>{{postagem.titulo}}</h6>
+            <label>
+              por &nbsp; <em>{{postagem.pessoa.nome}}</em> &nbsp; em &nbsp;
+              <em *ngFor="let categoria of postagem.lstCategorias"> {{categoria.nome}} </em> &nbsp;
+              {{postagem.dataPostagem.toString().substr(0, 9) | date: 'dd/MM/yyyy'}}
+            </label>
+            <article>
+              <p [innerHTML]="postagem.descricaoTexto">
+              </p>
+            </article>
+            <a class="btn btn-blog pull-right marginBottom10" (click)="open(content, postagem)">Detalhar Postagem</a>
+          </div>
+
+          <hr>
+          <pre>{{ closeResult }}</pre>
+
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <button class="btn btn-lg btn-outline-dark" (click)="open(content)" *ngIf="isCadastroHabilitado">
+              Cadastrar postagem
+            </button>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

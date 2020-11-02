@@ -1,0 +1,30 @@
+<main>
+
+  <router-outlet></router-outlet>
+  <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><img class="logo" src="assets/img/logo.png" /></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirecionarParaOpenBanking()">Open Banking <span
+              class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirecionarParaPIX()">PIX</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirecionarParaEducacaoFinanceira()">Educação Financeira</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirecionarParaDocumentos()">Documentos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirecionarParaBlog()">Blog</a>
+        </li>
+        <li class="nav-item" *ngIf="!isAutenticado">
+          <a class="nav-link" (click)="redirecionarParaLogin()">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</main>

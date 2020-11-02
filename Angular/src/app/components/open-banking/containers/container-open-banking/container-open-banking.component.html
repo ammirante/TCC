@@ -1,0 +1,56 @@
+<router-outlet></router-outlet>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="titulo">Open Banking</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 card-titulo">
+            <h5 class="texto-titulo">
+                O Open Banking ou Sistema Bancário Aberto é o novo modelo de negócio proposto pelo BACEN. Seu principal
+                objetivo é o aumento de opções disponíveis para o consumidor escolhar o serviço financeiro que melhor
+                lhe atende. Além disso, através do Open Banking será possível levar seus dados financeiros para onde
+                quiser.
+            </h5>
+        </div>
+    </div>
+    <div class="conteudo">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card-conteudo">
+                    <img src="assets/img/api.jpg" class="img-texto">
+                    <div class="conteudo-texto">
+                        <p>Adoção de uma camada de tecnologia padronizada (API) por parte das
+                            instituições financeiras simplificando a comunicação sem deixar de lado a segurança.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card-conteudo">
+                    <img src="assets/img/open-banking.png" class="img-texto">
+                    <div class="conteudo-texto">
+                        <p>
+                            Ampliação dos produtos e serviços ofertados proporcionando ao mercado
+                            financeiro brasileiro maior concorrência,
+                            qualidade e segurança.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card-video">
+                    <h1>Você sabe o que é Open Banking muchacho?</h1>
+                    <video controls class="video" (play)="video()" #videoPlayer>
+                        <source src="assets/video/open-banking.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

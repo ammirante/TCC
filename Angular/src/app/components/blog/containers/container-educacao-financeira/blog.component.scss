@@ -1,0 +1,128 @@
+.col-12 {
+    background-color: #2b2b2b;
+}
+
+h2.titulo {
+    text-align: center;
+    font-family: Domine;
+    font-size: 6rem;
+    color: #f2f2f2;
+    width: 50%;
+    margin: 3rem auto;
+}
+
+
+.search-form {
+    margin-top: 10px;
+    margin: auto 8.5%;
+
+    .input-group{
+        margin-top: 33px;
+        margin-bottom: 67px; 
+        i {
+            margin-right: 1rem;
+        }
+
+        i:hover{
+            color:rgba(0, 0, 0, 0.5);
+        }
+
+        .form-control{
+            border-radius: .25rem;
+        }
+    }
+}
+
+.content{
+    margin-bottom: 10rem;
+
+    .blogShort {
+        border: 1px solid #262e3d;
+        box-sizing: border-box;
+        border-radius: 5px;
+        margin-bottom: 3rem;
+        padding: 28px;
+    
+        .thumb {
+            height: 207px;
+            padding: 0;
+            border-radius: 0;
+            border: 2px solid #262E3D
+        }
+    
+        h6 {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 120%;
+    
+            display: flex;
+            align-items: center;
+    
+            color: #262e3d;
+        }
+    
+        label {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 150%;
+    
+            display: flex;
+            align-items: center;
+    
+            color: #000000;
+    
+            em {
+                color: #0057ff;
+            }
+        }
+    
+        p {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 120%;
+    
+            display: flex;
+            align-items: center;
+    
+            color: #000000;
+        }
+    }
+    
+    .btn-blog {
+        color: #262e3d;
+        background-color: #fca311;
+        border-color: #fca311;
+        border-radius: 0;
+        margin-bottom: 10px;
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 150%;
+    
+        position: absolute;
+        right: 28px;
+        bottom: 29px;
+    }
+    .btn-blog:hover,
+    .btn-blog:focus,
+    .btn-blog:active,
+    .btn-blog.active,
+    .open .dropdown-toggle.btn-blog {
+        color: #262e3d;
+        background-color: #FCB644;
+        border-color: #FCB644;
+    }
+    .margin10 {
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+}
+
+

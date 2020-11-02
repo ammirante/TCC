@@ -1,0 +1,28 @@
+.contato{
+    font-size: small;
+    margin-bottom: 0rem;
+}
+
+.logo{
+    width: 6rem;
+    height: auto;
+}
+
+.navbar-brand{
+    position: relative;
+    left: 7rem;
+}
+
+.nav-item{
+    margin-left: 10rem;
+    font-size: larger;
+    color: #14213D;
+
+    & a{
+        cursor: pointer;
+    }
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color: #14213D;
+}

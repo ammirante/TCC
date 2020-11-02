@@ -1,0 +1,66 @@
+.col-12 {
+    background-color: #2b2b2b;
+}
+
+h2.titulo {
+    text-align: center;
+    font-family: Domine;
+    font-size: 6rem;
+    color: #f2f2f2;
+    width: 50%;
+    margin: 3rem auto;
+}
+
+h5.texto-titulo {
+    text-align: justify center;
+    font-family: Open Sans;
+    font-size: 1.5rem;
+    color: #060c17;
+    margin: 4rem;
+}
+
+.card-titulo {
+    margin-top: -2rem;
+    background-color: #e5e5e5;
+}
+
+.conteudo {
+    margin-top: 2rem;
+}
+
+.container-fluid {
+    padding-bottom: 10rem;
+}
+
+.conteudo-texto {
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 120%;
+    text-align: center;
+    color: #060c17;
+    padding-top: 20px;
+}
+
+.img-texto {
+    width: 100%;
+    height: auto;
+}
+
+.card-conteudo {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.card-video{
+    h1{
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+        text-align: center;
+    }
+    video {
+        width: 100%;
+        height: auto;
+    }
+}
+
