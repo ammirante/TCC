@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-container-educacao-financeira',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerEducacaoFinanceiraComponent implements OnInit {
 
-  constructor(
-  ) { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  redirecionarBACEN(): void {
+    window.open('https://www.bcb.gov.br/cidadaniafinanceira', '_blank');
   }
 }

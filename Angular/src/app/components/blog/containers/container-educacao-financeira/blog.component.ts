@@ -26,6 +26,8 @@ export class ContainerBlogComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   visualizacao: boolean;
   categoriasVisualizacao: DominioCategoria[] = [];
+  tituloModal = 'Cadastrar postagem';
+
 
   closeResult = '';
 
@@ -90,10 +92,12 @@ export class ContainerBlogComponent implements OnInit, OnDestroy {
       this.formularioPostagem.controls.descricaoTexto.disable();
       this.formularioPostagem.controls.lstCategorias.disable();
       this.categoriasVisualizacao = postagem.lstCategorias;
+      this.tituloModal = 'Detalhamento postagem';
       console.log(this.categoriasVisualizacao);
     } else {
       this.visualizacao = false;
       this.categoriasVisualizacao = [];
+      this.tituloModal = 'Cadastrar postagem';
     }
   }
 

@@ -1,48 +1,28 @@
 <router-outlet></router-outlet>
-
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-
-                    <div class="search-form">
-                        <form>
-                            <div class="input-group">
-                                <i class="fa fa-search fa-2x" aria-hidden="true" (click)="pesquisar()"></i>
-                                <input type="text" placeholder="Buscar" name="search" class="form-control input-lg"
-                                    id="pesquisa-norma" type="text" [(ngModel)]="pesquisa">
-                            </div>
-                        </form>
-                    </div>
-
-                    <h1>Resultado da busca</h1>
-
-                    <div class="search-result" *ngFor="let norma of normativos">
-                        <p><b>Título: </b>{{norma.dominioNorma.nome}} n° {{norma.numeroNorma}}</p>
-                        <p><b>Data Documento: </b>{{converterData(norma.dataDocumento)}}</p>
-                        <p><b>Assunto: </b>{{norma.assunto}}</p>
-                        <p><b>Responsável: </b>{{norma.responsavel}}</p>
-                        <a (click)="redirecionarBACEN(norma.dominioNorma.nome, norma.numeroNorma)">Mais detalhes</a>
-                    </div>
-
-                   
-
-                    <div class="text-center">
-                        <div class="btn-group">
-                            <button class="btn btn-white" type="button"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-                            <button class="btn btn-white">1</button>
-                            <button class="btn btn-white  active">2</button>
-                            <button class="btn btn-white">3</button>
-                            <button class="btn btn-white">4</button>
-                            <button class="btn btn-white">5</button>
-                            <button class="btn btn-white">6</button>
-                            <button class="btn btn-white">7</button>
-                            <button class="btn btn-white" type="button"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div class="search-form">
+            <form>
+              <div class="input-group">
+                <i class="fa fa-search fa-2x" aria-hidden="true" (click)="pesquisar()"></i>
+                <input type="text" placeholder="Buscar" name="search" class="form-control input-lg"
+                       id="pesquisa-norma" type="text" [(ngModel)]="pesquisa">
+              </div>
+            </form>
+          </div>
+          <h1 *ngIf="normativos.length > 0">Resultado da busca</h1>
+          <div class="search-result" *ngFor="let norma of normativos">
+            <p><b>Título: </b>{{norma.dominioNorma.nome}} n° {{norma.numeroNorma}}</p>
+            <p><b>Data Documento: </b>{{converterData(norma.dataDocumento)}}</p>
+            <p><b>Assunto: </b>{{norma.assunto}}</p>
+            <p><b>Responsável: </b>{{norma.responsavel}}</p>
+            <a (click)="redirecionarBACEN(norma.dominioNorma.nome, norma.numeroNorma)">Mais detalhes</a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
