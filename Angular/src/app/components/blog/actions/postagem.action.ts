@@ -15,7 +15,7 @@ export const salvarPost = createAction(
 
 export const recuperarPostagens = createAction(
     PostagemActionTypes.RecuperarPostagem,
-    props<{}>()
+    props
 );
 
 export const recuperarPostagensSuccess = createAction(

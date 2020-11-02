@@ -8,7 +8,7 @@ export enum CategoriaActionTypes {
 
 export const recuperarCategorias = createAction(
     CategoriaActionTypes.CategoriaAction,
-    props<{}>()
+    props
 );
 
 export const recuperarCategoriasSuccess = createAction(

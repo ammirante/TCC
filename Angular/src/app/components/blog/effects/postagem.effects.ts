@@ -21,7 +21,7 @@ export class PostagemEffects {
             mergeMap(action =>
                 this.blogService.adicionarPostagem(action.postagem).pipe(
                     map(
-                        () => recuperarPostagens({})
+                        () => recuperarPostagens()
                     )
                 )
             )

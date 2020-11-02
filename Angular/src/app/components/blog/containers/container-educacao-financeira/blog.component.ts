@@ -46,8 +46,8 @@ export class ContainerBlogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(recuperarCategorias({}));
-    this.store.dispatch(recuperarPostagens({}));
+    this.store.dispatch(recuperarCategorias());
+    this.store.dispatch(recuperarPostagens());
     this.categorias$ = this.store.pipe(select('recuperarCategorias'));
     this.postagens$ = this.store.pipe(select('recuperarPostagens'));
 
