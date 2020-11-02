@@ -84,8 +84,8 @@ export class ContainerBlogComponent implements OnInit, OnDestroy {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
 
-    this.formularioPostagem.patchValue(postagem);
     if (postagem) {
+      this.formularioPostagem.patchValue(postagem);
       this.visualizacao = true;
       this.formularioPostagem.controls.titulo.disable();
       this.formularioPostagem.controls.referenciaImagemCapa.disable();
@@ -98,6 +98,11 @@ export class ContainerBlogComponent implements OnInit, OnDestroy {
       this.visualizacao = false;
       this.categoriasVisualizacao = [];
       this.tituloModal = 'Cadastrar postagem';
+      this.formularioPostagem.controls.titulo.enable();
+      this.formularioPostagem.controls.referenciaImagemCapa.enable();
+      this.formularioPostagem.controls.descricaoTexto.enable();
+      this.formularioPostagem.controls.lstCategorias.enable();
+      this.resetarFormulario();
     }
   }
 
