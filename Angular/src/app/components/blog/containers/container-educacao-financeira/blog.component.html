@@ -80,7 +80,7 @@
             {{postagem.dataPostagem.toString().substr(0, 9) | date: 'dd/MM/yyyy'}}
           </label>
           <article>
-            <p [innerHTML]="postagem.descricaoTexto">
+            <p [innerHTML]="truncateHTML(postagem.descricaoTexto)">
             </p>
           </article>
           <a class="btn btn-blog pull-right marginBottom10" (click)="open(content, postagem)">Detalhar Postagem</a>

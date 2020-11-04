@@ -106,6 +106,16 @@ export class ContainerBlogComponent implements OnInit, OnDestroy {
     }
   }
 
+  truncateHTML(text: string): string {
+    const limiteCaracteres = 300;
+    if (!text || text.length <= limiteCaracteres) {
+      return text;
+    }
+    const semHtml = text.replace(/<(?:.|\n)*?>/gm, '');
+    const shortened = semHtml.substring(0, limiteCaracteres) + '...';
+    return shortened;
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
